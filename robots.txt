@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: https://al3xpay.github.io/Al3xPay
+Sitemap: https://al3xpay.github.io/Al3xPay/sitemap.xml
