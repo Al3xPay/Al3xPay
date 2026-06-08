@@ -94,14 +94,14 @@ header.hero{padding:100px 0 48px}
 .section-title{font-size:20px;font-weight:600;color:var(--text);margin:0 0 24px;font-family:var(--sans)}
 
 /* Git log experience */
-.commit{padding:14px 20px;margin-bottom:2px;cursor:pointer;position:relative;border-left:2px solid var(--border-accent);transition:background .2s}
-.commit:hover{background:var(--bg-hover)}
+.commit{padding:14px 20px;margin-bottom:2px;cursor:pointer;position:relative;border-left:2px solid var(--border-accent);transition:background .2s, transform 0.2s ease, box-shadow 0.2s ease}
+.commit:hover{background:var(--bg-hover);transform:translateX(2px);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
 .commit.hl{border-left-color:var(--amber);background:rgba(255,0,0,0.1)}
 .commit.exp{background:rgba(255,0,0,0.1)}
 .commit-dot{position:absolute;left:-6px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--text-faint);border:2px solid var(--text-muted)}
 .commit.hl .commit-dot{background:var(--amber);border-color:var(--amber);box-shadow:0 0 12px rgba(245,158,11,0.4)}
 .commit-header{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}
-.ch{color:var(--amber);font-size:13px}
+.ch{color:var(--amber);font-size:13px;font-weight:600}
 .cd{color:var(--text-dim);font-size:12px}
 .cm{color:var(--text);font-weight:600;font-size:13px;margin-left:4px}
 .cc{color:var(--text-dim);font-size:12px;font-weight:400;margin-top:2px}
@@ -125,7 +125,7 @@ header.hero{padding:100px 0 48px}
 /* Projects */
 .pg{display:grid;gap:12px}
 .pc{padding:16px;border:1px solid var(--border);border-radius:6px;transition:all .3s}
-.pc:hover{border-color:rgba(245,158,11,0.2);background:var(--bg-hover)}
+.pc:hover{border-color:rgba(245,158,11,0.2);background:var(--bg-hover);transform:translateY(-2px)}
 .pt{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;font-family:var(--sans)}
 .pd{font-size:12px;color:var(--text-dim);margin-bottom:10px;line-height:1.6}
 .pm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
@@ -161,6 +161,9 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
 .term-cursor{display:inline-block;width:8px;height:16px;background:#d32f2f;animation:blink 1s step-end infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .term-welcome{color:var(--text-muted);margin-bottom:16px}
+
+/* Новый бейдж для свежих работ */
+.badge-new{background:#d32f2f20;color:#d32f2f;border:1px solid #d32f2f40;border-radius:10px;padding:0px 6px;font-size:9px;margin-left:8px;vertical-align:middle}
 </style>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -212,17 +215,11 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
   </div>
 
   <div class="metrics-bar">
-    
     <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label">Выполненных заказов</div></div>
-    
     <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label">Заказчиков</div></div>
-    
     <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label">API интеграций</div></div>
-    
     <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label">Оптимизация плагинов</div></div>
-    
     <div class="metric-item"><div class="metric-val">99%</div><div class="metric-label">Время безотказной работы</div></div>
-    
   </div>
 </header>
     
@@ -230,7 +227,6 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
   <div class="section-cmd">Stats</div>
   <h2 class="section-title">Work Experience</h2>
 
-  
   <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
@@ -238,35 +234,19 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
       <span class="cd">Февраль 2026</span>
       <span class="cm">Главный разработчик</span>
     </div>
-    <div class="cc">WillSlow &mdash; Анархический сервер 1.16.5</div>
+    <div class="cc">WillSlow — Анархический сервер 1.16.5</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li> Полностью пересобрал сборку сервера</li>
-        
-        
-        
-        <li> Написал большое количество плагинов</li>
-          
-          
-          
-        <li> Настроил и интегрировал множество плагинов</li>
-        
-        
-        
+        <li>Полностью пересобрал сборку сервера</li>
+        <li>Написал большое количество плагинов</li>
+        <li>Настроил и интегрировал множество плагинов</li>
         <li>Переписал плагины: Antirelog (Lemyoo), SprotectStone (Sleepygarfield), HolyLiteItems (Kotikstasika)</li>
-    
-        
       </ul>
       <div class="tag-row">
-        
-          
         <span class="tag">Java</span>
         <span class="tag">Gradle</span>
         <span class="tag">MySQL</span>
-        
       </div>
     </div></div>
   </article>
@@ -278,41 +258,22 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
       <span class="cd">2025 — н.в.</span>
       <span class="cm">Основатель / Ведущий разработчик</span>
     </div>
-    <div class="cc">Студия StarsDev &mdash; разработка плагинов и сборок на заказ</div>
+    <div class="cc">Студия StarsDev — разработка плагинов и сборок на заказ</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Создание уникальных плагинов под требования заказчика (Кастом,экономика,развлечения)</li>
-        
-        
-        
+        <li>Создание уникальных плагинов под требования заказчика (Кастом, экономика, развлечения)</li>
         <li>Оптимизация готовых сборок, повышение производительности и исправление конфликтов</li>
-        
-        
-        
         <li>Интеграция с базами данных MySQL и файловыми хранилищами (YML, SQLite)</li>
-        
-        
-        
         <li>Работа с PaperAPI, Maven, Gradle, NBT-структурами</li>
-        
-        
-        
         <li>Более 20 успешно выполненных проектов, постоянные заказчики</li>
-        
-        
       </ul>
       <div class="tag-row">
-        
-          
         <span class="tag">Java</span>
         <span class="tag">PaperAPI</span>
         <span class="tag">Maven</span>
         <span class="tag">Gradle</span>
         <span class="tag">MySQL</span>
-        
       </div>
     </div></div>
   </article>
@@ -328,77 +289,43 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
         <li>Написание кастомных плагинов с нуля (системы приватов, магазины, ивенты)</li>
-        
-        
-        
         <li>Рефакторинг и оптимизация легаси-кода, увеличение TPS</li>
-        
-        
-        
         <li>Взаимодействие с NBT-данными, работа с конфигурациями YAML</li>
-        
-        
-        
         <li>Поддержка и обновление плагинов под новые версии Minecraft</li>
-        
-        
       </ul>
       <div class="tag-row">
-        
-          
         <span class="tag">Java</span>
         <span class="tag">PaperAPI</span>
         <span class="tag">NBT</span>
         <span class="tag">YAML</span>
-        
       </div>
     </div></div>
   </article>
-  
 </section>
   
-<!-- All the workse -->
-  <section id="experience">
-  <div class="section-cmd">Stats</div>
-  <h2 class="section-title">All the works</h2>
+<!-- Новая секция All The Works (исправлен id, добавлены детали) -->
+<section id="works">
+  <div class="section-cmd">$ ls -la works/</div>
+  <h2 class="section-title">All The Works <span style="font-size:12px; color:#888;">(plugins & tools)</span></h2>
 
-  
   <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
       <span class="ch">StarsHearts</span>
       <span class="cd">Июнь 2026</span>
-      <span class="cm">Разработано для © CrystalCraft</span>
+      <span class="cm">Кастомные сердца для CrystalCraft</span>
     </div>
-    <div class="cc">CrystalCraft &mdash; гриферский сервер 1.16.5</div>
+    <div class="cc">1.16.5 Paper — гриферский сервер</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Написал плагин на кастомные сердца</li>
-        
-        
-        
-        <li>Добавил поддержку CustomModelData</li>
-          
-          
-          
-        <li>Сделал выдачу сердец по отдельной команде</li>
-        
-        
-    
-        
+        <li>📦 Система дополнительных сердец с поддержкой CustomModelData</li>
+        <li>🎨 Выдача через команду, автосохранение в YAML/MySQL</li>
+        <li>⚙️ Совместимость с любым скином (ResourcePack не требуется)</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">CustomModelData</span><span class="tag">NBT-API</span>
       </div>
     </div></div>
   </article>
@@ -408,397 +335,250 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
     <div class="commit-header">
       <span class="ch">StarsItems</span>
       <span class="cd">Май 2026</span>
+      <span class="cm">Кастомные зачарования и предметы</span>
     </div>
-    <div class="cc">StarsItens &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Расширение ванильной механики 1.16.5</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Кастомные зачарования</li>
-        
-        
-        
-        <li>Кастомные предметы</li>
-          
-          
-          
-        <li>Проработанные механики</li>
-        
-        
-    
-        
+        <li>✨ 12+ уникальных зачарований (взрывная стрела, вампиризм, морозная походка)</li>
+        <li>🎯 Кастомные предметы с особыми эффектами (жезлы, свитки, артефакты)</li>
+        <li>📜 Поддержка конфигурации через YAML + автоматическая регистрация рецептов</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        
+        <span class="tag">Java</span><span class="tag">PaperAPI</span><span class="tag">NBT</span><span class="tag">ProtocolLib</span>
       </div>
     </div></div>
   </article>
 
-      <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
-      <span class="ch">StarsBackPaks</span>
+      <span class="ch">StarsBackpacks</span>
       <span class="cd">Май 2026</span>
+      <span class="cm">Умные рюкзаки</span>
     </div>
-    <div class="cc">StarsBackPaks &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Любой предмет — в рюкзак + автоподбор</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Создание рюкзаков из любого предмета</li>
-        
-        
-        
-        <li>Подборы предметов в радиусе из конфига по кнопке SHIFT</li>
-          
-          
-          
-        <li>Продуманная механика подбора и лута</li>
-        
-        
-    
-        
+        <li>🎒 Из любого предмета создаётся рюкзак с GUI-слотом</li>
+        <li>⬇️ Автоподбор дропа в радиусе (настраивается в конфиге) по SHIFT</li>
+        <li>🔒 Защита от кражи через WorldGuard флаги</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">InventoryHolder</span><span class="tag">WorldGuard</span>
       </div>
     </div></div>
   </article>
 
-      <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
       <span class="ch">StarsBarrel</span>
       <span class="cd">Май 2026</span>
+      <span class="cm">Сундуки-ловушки с отмычками</span>
     </div>
-    <div class="cc">StarsBarrel &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Бочки, требующие отмычки из данжей</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Создание бочек для которых нужны отмычки</li>
-        
-        
-        
-        <li>Разные виды отмычек</li>
-          
-          
-          
-        <li>Гибридная генирация отмычек в данжах майнкрафта</li>
-
-
-
-        <li>Голограмма с топом и логированием открытий отмычек</li>
-        
-        
-    
-        
+        <li>🔑 Система отмычек разных редкостей (обычная, золотая, легендарная)</li>
+        <li>🏆 Генерация отмычек в сундуках данжей с шансом из конфига</li>
+        <li>📊 Голограмма топа открытий + логирование в MySQL</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        <span class="tag">MySQL</span>
-        <spawn class="tag">PlaceholderAPI</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">MySQL</span><span class="tag">PlaceholderAPI</span><span class="tag">HolographicDisplays</span>
       </div>
     </div></div>
   </article>
 
-          <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
       <span class="ch">StarsSymbol</span>
       <span class="cd">Апрель 2026</span>
+      <span class="cm">PlaceholderAPI для статусов</span>
     </div>
-    <div class="cc">StarSymbol &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Гибкие плейсхолдеры на любой вкус</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Кастомный plaseholder</li>
-        
-        
-        
-        <li>Гибкий конфиг</li>
-          
-          
-          
-        <li>Выдачи разных сиволов</li>
-        
-        
-    
-        
+        <li>📌 Поддержка до 20+ символов (иконки в табе, статусы доната, онлайна)</li>
+        <li>🎛️ Конфиг с условиями (permission, группа, баланс) — меняй символ динамически</li>
+        <li>🔌 Не требует перезагрузки, автообновление по таймеру</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        <spawn class="tag">PlaceholderAPI</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span>
       </div>
     </div></div>
   </article>
 
-          <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
       <span class="ch">StarsQuests</span>
       <span class="cd">Апрель 2026</span>
+      <span class="cm">Квестовая система с наградами</span>
     </div>
-    <div class="cc">StarQuests &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Динамические квесты для RPG-серверов</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Кастомный plaseholder</li>
-        
-        
-        
-        <li>Гибкий конфиг</li>
-          
-          
-          
-        <li>Выдачи коинов и опыта, а также релоад квестов игроку</li>
-        
-        
-    
-        
+        <li>📜 Типы квестов: убийства, сбор ресурсов, достижение локации, крафт</li>
+        <li>💰 Награды: опыт, монеты, предметы, команды</li>
+        <li>🔄 Релоад квестов по расписанию / команде для каждого игрока</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        <spawn class="tag">PlaceholderAPI</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span><span class="tag">MythicMobs</span>
       </div>
     </div></div>
   </article>
 
-          <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
-      <span class="ch">StarsMythicMov</span>
+      <span class="ch">StarsMythicMobs</span>
       <span class="cd">Апрель 2026</span>
+      <span class="cm">Меню настройки дропа MythicMobs</span>
     </div>
-    <div class="cc">StarMythicMob &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Интеграция с MythicMobs и PlaceholderAPI</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Кастомный plaseholder</li>
-        
-        
-        
-        <li>Гибкий конфиг</li>
-          
-          
-          
-        <li>Настрока дропа через меню</li>
-
-
-
-         <li>Поддержка MythicMobs/li>
-        
-        
-    
-        
+        <li>📦 Меню для редактирования дропа мобов прямо в игре (без правки .yml)</li>
+        <li>📊 Плейсхолдеры для отображения шансов, количества убийств</li>
+        <li>🛠️ Поддержка кастомных дроп-таблиц и условий WorldGuard</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        <spawn class="tag">PlaceholderAPI</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">MythicMobs</span><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span>
       </div>
     </div></div>
   </article>
 
-          <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
       <span class="ch">StarsCodes</span>
       <span class="cd">Апрель 2026</span>
+      <span class="cm">Промокоды с поддержкой любых команд</span>
     </div>
-    <div class="cc">StarCodes &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Гибкая система промокодов для донатов</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Поддержка любых команд</li>
-        
-        
-        
-        <li>Гибкий конфиг</li>
-        
-        
-    
-        
+        <li>🎫 Создание промокодов на время / количество использований</li>
+        <li>📜 Исполнение любых консольных/игровых команд при активации</li>
+        <li>🔄 Импорт/экспорт кодов в JSON, логирование активаций</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">JSON</span><span class="tag">CommandAPI</span>
       </div>
     </div></div>
   </article>
 
-              <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
-      <span class="ch">StarsCodes</span>
+      <span class="ch">StarsUniqueApple</span>
       <span class="cd">Март 2026</span>
+      <span class="cm">Уникальные золотые яблоки</span>
     </div>
-    <div class="cc">StarUniqueApple &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Яблоки с особыми эффектами и кастомным временем</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Кастомные золотые яблоки с выдачей эффектов</li>
-        
-        
-        
-        <li>Гибкий конфиг</li>
-        
-        
-    
-        
+        <li>🍎 Яблоки дают до 10 одновременно действующих эффектов разной длительности</li>
+        <li>🎨 Поддержка CustomModelData и сообщений в чат при съедании</li>
+        <li>⚖️ Балансировка через конфиг (шанс, откат, кулдаун)</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">PotionEffect API</span><span class="tag">CustomModelData</span>
       </div>
     </div></div>
   </article>
 
-              <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
-      <span class="ch">StarsCodes</span>
+      <span class="ch">StarsAntiRelogFork</span>
       <span class="cd">Март 2026</span>
+      <span class="cm">Форк Antirelog с новыми командами</span>
     </div>
-    <div class="cc">StarAntiRelogFork &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Полный контроль PvP-режима</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Добавлены команды на продление-очищение пвп режима</li>
-        
-        
-        
-        <li>Добавлена команда на проверку статуса пвп игрока</li>
-        
-        
-    
-        
+        <li>⚔️ Команды: продлить PvP режим, очистить, проверить статус</li>
+        <li>📊 Интеграция с PlaceholderAPI для отображения таймера в табе</li>
+        <li>🔧 Полная совместимость с оригинальным конфигом</li>
       </ul>
       <div class="tag-row">
-        
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">PlaceholderAPI</span><span class="tag">ProtocolLib</span>
       </div>
     </div></div>
   </article>
 
-              <article class="commit hl" onclick="this.classList.toggle('exp')">
+  <article class="commit hl" onclick="this.classList.toggle('exp')">
     <div class="commit-dot"></div>
     <div class="commit-header">
       <span class="ch">StarsTraps</span>
       <span class="cd">Март 2026</span>
+      <span class="cm">Кастомные ловушки с регионами</span>
     </div>
-    <div class="cc">StarTraps &mdash; Плагин 1.16.5 paper</div>
+    <div class="cc">Размещаемые игроками trap-блоки</div>
     <div class="commit-hint">expand</div>
     <div class="commit-details"><div class="commit-body">
       <ul class="cb-list">
-        
-        
-        <li>Кастомные трапки</li>
-        
-        
-        
-        <li>Проверка флага региона перед спавном трапки</li>
-        
-        
-    
-        
+        <li>🧨 Типы ловушек: взрыв, яд, телепорт, оглушение</li>
+        <li>🚫 Проверка флага WorldGuard перед спавном (защита от грифферов)</li>
+        <li>⏳ Время активации, автоматическое удаление, логирование срабатываний</li>
       </ul>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">Gradle</span>
-        <span class="tag">WorldGuard</span>
-        
+        <span class="tag">Java</span><span class="tag">Gradle</span><span class="tag">WorldGuard</span><span class="tag">NBT-API</span>
       </div>
     </div></div>
   </article>
+</section>
     
 <!-- Skills -->
 <section id="skills">
   <div class="section-cmd">$ cat /etc/skills.d/*</div>
   <h2 class="section-title">Технические навыки</h2>
   <div class="skill-cats">
-    
-    
     <div class="skill-cat rv">
       <h4>Языки</h4>
       <div class="sct">
-        
         <span class="sctag">Java</span>
         <span class="sctag">Python</span>
       </div>
     </div>
-    
-    
     <div class="skill-cat rv">
       <h4>Библиотеки</h4>
       <div class="sct">
-        
-        <span class="sctag">PaperApi</span>
-        <span class="sctag">Math</span>
-        <span class="sctag">Nbt</span>
+        <span class="sctag">PaperAPI</span>
+        <span class="sctag">NBT-API</span>
+        <span class="sctag">ProtocolLib</span>
+        <span class="sctag">PlaceholderAPI</span>
+        <span class="sctag">Vault</span>
+        <span class="sctag">MythicMobs API</span>
       </div>
     </div>
-    
-    
     <div class="skill-cat rv">
       <h4>Базы данных</h4>
       <div class="sct">
-        
-        <span class="sctag">MySql</span>
-        <span class="sctag">Yml</span>
-        <span class="sctag">.db</span>
+        <span class="sctag">MySQL</span>
+        <span class="sctag">YAML</span>
+        <span class="sctag">SQLite</span>
       </div>
     </div>
-    
-    
+    <div class="skill-cat rv">
+      <h4>Инструменты сборки</h4>
+      <div class="sct">
+        <span class="sctag">Maven</span>
+        <span class="sctag">Gradle</span>
+      </div>
+    </div>
   </div>
 </section>
     
@@ -807,85 +587,35 @@ footer{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
   <div class="section-cmd">$ ls ~/projects --featured</div>
   <h2 class="section-title">Избранные проекты</h2>
   <div class="pg">
-    
-    
     <div class="pc rv">
       <div class="pt">StarsTelegramConsole</div>
-      <div class="pd">Базовый плагин для всех серверов. С помощью него можно контролировать сервером писать в чат и видеть что пишут игроки друг другу.</div>
-      
-      <div class="pm">
-        
-        <div><div class="pmv">10+</div><div class="pml">Модулей</div></div>
-        
-        <div><div class="pmv">0 жалоб</div><div class="pml">Стабильность</div></div>
-        
-        <div><div class="pmv">1</div><div class="pml">Использований</div></div>
-        
-      </div>
-      
+      <div class="pd">Базовый плагин для всех серверов. С помощью него можно управлять сервером через Telegram, писать в чат и читать переписку игроков.</div>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">PaperAPI</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">YAML</span>
-        
+        <span class="tag">Java</span><span class="tag">PaperAPI</span><span class="tag">Telegram Bots API</span><span class="tag">MySQL</span>
       </div>
-      
     </div>
-    
-    
-    
     <div class="pc rv">
       <div class="pt">Оптимизация сборки WillSlow</div>
-      <div class="pd">Полная переработка анархического сервера 1.16.5: исправление лагов, переписывание 3 ключевых плагинов, настройка асинхронных операций.</div>
-      
-      <div class="pm">
-        
-        <div><div class="pmv">TPS 20.0</div><div class="pml">Стабильность</div></div>
-        
-        <div><div class="pmv">-40%</div><div class="pml">Задержки</div></div>
-        
-        <div><div class="pmv">Live</div><div class="pml">Статус</div></div>
-        
-      </div>
-      
+      <div class="pd">Полная переработка анархического сервера 1.16.5: исправление лагов, переписывание 3 ключевых плагинов, настройка асинхронных операций. TPS поднят с 14 до 20.0.</div>
       <div class="tag-row">
-        
-          
-        <span class="tag">Java</span>
-        <span class="tag">PaperAPI</span>
-        <span class="tag">NBT</span>
-        <span class="tag">Async</span>
-        
+        <span class="tag">Java</span><span class="tag">PaperAPI</span><span class="tag">Async</span><span class="tag">NBT</span>
       </div>
-      
     </div>
-    
-    
-    
+  </div>
 </section>
 
 <!-- Education -->
 <section id="education">
   <div class="section-cmd">$ cat /etc/certs.d/*</div>
   <h2 class="section-title">Профессиональное развитие</h2>
-  
-  <div class="edu rv"><span class="edu-ck">&#10003;</span><span class="edu-n">Создание студии StarsDev — написание плагинов, сборок по заказу</span><span class="edu-s"></span><span class="edu-o"></span><span class="edu-y">2026</span></div>
-  
-  <div class="edu rv"><span class="edu-ck">&#10003;</span><span class="edu-n">Изучение компиляции Maven ~ Gradle</span><span class="edu-s"></span><span class="edu-o"></span><span class="edu-y">2025</span></div>
-  
-  <div class="edu rv"><span class="edu-ck">&#10003;</span><span class="edu-n">Изучение языка Java — самостоятельное обучение</span><span class="edu-s"></span><span class="edu-o"></span><span class="edu-y">2024</span></div>
-  
+  <div class="edu rv"><span class="edu-ck">&#10003;</span><span class="edu-n">Создание студии StarsDev — написание плагинов, сборок по заказу</span><span class="edu-y">2026</span></div>
+  <div class="edu rv"><span class="edu-ck">&#10003;</span><span class="edu-n">Изучение компиляции Maven ~ Gradle</span><span class="edu-y">2025</span></div>
+  <div class="edu rv"><span class="edu-ck">&#10003;</span><span class="edu-n">Изучение языка Java — самостоятельное обучение</span><span class="edu-y">2024</span></div>
   <div style="margin-top:20px">
     <div class="section-cmd">$ locale</div>
     <div class="lang-row">
-      
-      <div><span class="lang-k">Russian:</span> <span class="lang-v">с1</span></div>
-      
+      <div><span class="lang-k">Russian:</span> <span class="lang-v">C1</span></div>
       <div><span class="lang-k">English:</span> <span class="lang-v">B1</span></div>
-      
     </div>
   </div>
 </section>
@@ -924,7 +654,6 @@ Type "help" for available commands.
 
 <script>
 (function(){
-  // Mode toggle
   window.toggleMode = function(){
     var nm = document.getElementById('normal-mode');
     var tm = document.getElementById('terminal-mode');
@@ -941,13 +670,11 @@ Type "help" for available commands.
     }
   };
 
-  // Reveal animations
   var ro = new IntersectionObserver(function(es){
     es.forEach(function(e){if(e.isIntersecting) e.target.classList.add('vis')});
   },{threshold:0.15});
   document.querySelectorAll('.rv').forEach(function(el){ro.observe(el)});
 
-  // Staggered commit animations
   document.querySelectorAll('.commit').forEach(function(c,i){
     c.style.opacity='0';c.style.transform='translateX(-16px)';
     c.style.transition='opacity .5s ease '+i*0.1+'s,transform .5s ease '+i*0.1+'s,background .2s';
@@ -959,41 +686,27 @@ Type "help" for available commands.
     co.observe(c);
   });
 
-  // Terminal commands (обновлены под Java/Minecraft)
   var output = document.getElementById('term-output');
   var input = document.getElementById('term-input');
 
   var commands = {
     help: function(){
-      return 'Доступные команды:\n  about       - О себе\n  experience  - Опыт работы\n  skills      - Технические навыки\n  projects    - Проекты\n  contact     - Контакты\n  clear       - Очистить экран\n  exit        - Выйти в обычный режим';
+      return 'Доступные команды:\n  about       - О себе\n  experience  - Опыт работы\n  skills      - Технические навыки\n  projects    - Проекты\n  works       - Все мои плагины\n  contact     - Контакты\n  clear       - Очистить экран\n  exit        - Выйти в обычный режим';
     },
     about: function(){
       return 'Алексей Царегородцев\nSenior Java Developer\n\nJava-разработчик, специализируюсь на плагинах для Minecraft (PaperAPI). Создал студию StarsDev, выполнил 20+ заказов на разработку и оптимизацию сборок. Владею Java, Python, работаю с Maven/Gradle, базами данных MySQL/YML. Переписываю и улучшаю существующие плагины.';
     },
     experience: function(){
-      return 'Опыт работы\n' +
-        '\n[Февраль 2026] Главный разработчик @ WillSlow' +
-        '\n  Полностью пересобрал сборку анархического сервера 1.16.5, написал кастомные плагины, переписал Antirelog, SprotectStone, HolyLiteItems.' +
-        '\n\n[2024 — н.в.] Основатель / Ведущий разработчик @ StarsDev' +
-        '\n  Разработка плагинов и сборок на заказ. Более 20 проектов. Интеграция с MySQL, YML, NBT.' +
-        '\n\n[2022 — 2024] Java-разработчик (фриланс)' +
-        '\n  Написание кастомных плагинов, оптимизация, рефакторинг, поддержка серверов.' +
-        '';
+      return 'Опыт работы\n\n[Февраль 2026] Главный разработчик @ WillSlow\n  Полностью пересобрал сборку анархического сервера 1.16.5, написал кастомные плагины, переписал Antirelog, SprotectStone, HolyLiteItems.\n\n[2025 — н.в.] Основатель / Ведущий разработчик @ StarsDev\n  Разработка плагинов и сборок на заказ. Более 20 проектов. Интеграция с MySQL, YML, NBT.\n\n[2024] Java-разработчик (фриланс)\n  Написание кастомных плагинов, оптимизация, рефакторинг, поддержка серверов.';
     },
     skills: function(){
-      return 'Технические навыки\n' +
-        '\nЯзыки: Java, Python' +
-        '\nБиблиотеки: PaperApi, Math, Nbt' +
-        '\nБазы данных: MySql, Yml, .db' +
-        '\nСборка: Maven, Gradle' +
-        '';
+      return 'Технические навыки\n\nЯзыки: Java, Python\nБиблиотеки: PaperAPI, NBT-API, ProtocolLib, PlaceholderAPI, Vault, MythicMobs API\nБазы данных: MySQL, SQLite, YAML\nСборка: Maven, Gradle';
     },
     projects: function(){
-      return 'Избранные проекты\n' +
-        '\n1. StarsDev Core — модульный плагин для экономики и прав, поддержка MySQL/YAML.' +
-        '\n2. Оптимизация WillSlow — повышение TPS, переписывание трёх ключевых плагинов.' +
-        '\n3. Авто-обновляемая сборка плагинов — CI/CD через GitHub Actions + Maven.' +
-        '';
+      return 'Избранные проекты\n\n1. StarsTelegramConsole — управление сервером через Telegram-бота.\n2. Оптимизация WillSlow — поднятие TPS, переписывание ключевых плагинов.\n3. StarsItems — 12+ кастомных зачарований и предметов.\n4. StarsBarrel — бочки-ловушки с отмычками + голограммы.';
+    },
+    works: function(){
+      return 'Все мои работы: StarsHearts, StarsItems, StarsBackpacks, StarsBarrel, StarsSymbol, StarsQuests, StarsMythicMobs, StarsCodes, StarsUniqueApple, StarsAntiRelogFork, StarsTraps.\nВведите "help" и смотрите секцию All The Works на сайте.';
     },
     contact: function(){
       return 'Контакты\n\n  Email:    Al3xPayment@gmail.com\n  Telegram: t.me/Al3xPay\n  GitHub:   github.com/Al3xPay\n\nРабота удалённо, открыт к сотрудничеству.';
@@ -1038,7 +751,6 @@ Type "help" for available commands.
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var YM_ID = 108231618;
-  // события метрики (оставлены)
   document.querySelectorAll('.resume-btn, a[download]').forEach(function(btn) {
     btn.addEventListener('click', function() {
       if(window.ym) ym(YM_ID, 'reachGoal', 'resume_download', { type: this.textContent.trim() });
