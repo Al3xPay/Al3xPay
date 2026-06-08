@@ -4,121 +4,145 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Алексей Царегородцев | Senior Java Developer</title>
-<meta name="description" content="Senior Java Developer — разработка плагинов для Minecraft: зачарования, рюкзаки, отмычки, квесты, боссы и многое другое.">
+<meta name="description" content="Разработка Minecraft-плагинов">
 <meta name="theme-color" content="#d32f2f">
-<meta property="og:title" content="Алексей Царегородцев | Senior Java Developer">
-<meta property="og:description" content="Студия StarsDev: кастомные плагины, оптимизация, интеграции. 20+ успешных проектов.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://Al3xPay.github.io/Al3xPay">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#050508; --bg-card:#d32f2f; --bg-hover:rgba(255,0,0,0.08);
-  --border:#1a1a2e; --border-accent:#2a2a3e;
-  --text:#e5e5e5; --text-dim:#aaa; --text-muted:#666;
-  --amber:#d32f2f; --cyan:#fff; --purple:#A78BFA;
+  --bg:#000000; --bg-card:rgba(10,10,15,0.6); --bg-hover:rgba(211,47,47,0.08);
+  --border:#1f1f2a;
+  --text:#e5e5e5; --text-dim:#aaa; --text-muted:#6c6c7a;
+  --primary:#d32f2f;
   --mono:'JetBrains Mono','Fira Code',monospace;
   --sans:'IBM Plex Sans','Inter',sans-serif;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
-::selection{background:rgba(255,0,0,0.2);color:#fff}
-.container{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:10}
-section{padding:56px 0;border-top:1px solid var(--border)}
+::selection{background:rgba(211,47,47,0.3);color:#fff}
+.container{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:10}
+section{padding:60px 0;border-top:1px solid var(--border)}
 section:first-of-type{border-top:none}
-.glow-tr{position:fixed;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(245,158,11,0.03) 0%,transparent 70%);pointer-events:none;z-index:0}
+.glow-tr{position:fixed;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(211,47,47,0.04) 0%,transparent 70%);pointer-events:none;z-index:0}
 
-/* navigation */
 nav{position:fixed;top:0;left:0;right:0;padding:12px 24px;background:rgba(5,5,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;display:flex;justify-content:space-between;align-items:center}
-.nav-logo{font-size:13px;color:var(--amber)}.nav-logo .s{color:var(--text-muted)}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-links a{color:var(--text-muted);font-size:12px;text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--amber)}
-.terminal-toggle{font-size:11px;color:var(--amber);background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.2);border-radius:6px;padding:4px 12px;cursor:pointer;font-family:var(--mono);transition:all .2s}
-.terminal-toggle:hover{background:rgba(255,0,0,0.2);border-color:var(--amber)}
-@media(max-width:640px){.nav-links a:not(.terminal-toggle){display:none}}
+.nav-logo{font-size:13px;color:var(--primary)}.nav-logo .s{color:var(--text-muted)}
+.nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 
-/* Hero */
+/* Все кнопки навигации (ссылки, переключатели) — единый стиль как у contact-pill */
+.nav-links a,
+.nav-links .lang-toggle,
+.nav-links .terminal-toggle {
+  font-size: 12px;
+  color: var(--text);
+  text-decoration: none;
+  padding: 5px 14px;
+  border: 1px solid rgba(211,47,47,0.3);
+  border-radius: 4px;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.02);
+  font-family: var(--mono);
+  cursor: pointer;
+  display: inline-block;
+  line-height: normal;
+}
+.nav-links a:hover,
+.nav-links .lang-toggle:hover,
+.nav-links .terminal-toggle:hover {
+  background: rgba(211,47,47,0.1);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+@media(max-width:640px){
+  .nav-links{ gap: 8px; }
+  .nav-links a, .nav-links .lang-toggle, .nav-links .terminal-toggle{ padding: 4px 10px; font-size: 10px; }
+}
+
 header.hero{padding:110px 0 48px}
 .hero-label{font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:12px}
-.hero h1{font-size:clamp(30px,7vw,44px);font-weight:700;color:var(--amber);letter-spacing:-1px;font-family:var(--sans)}
+.hero h1{font-size:clamp(30px,7vw,44px);font-weight:700;color:var(--primary);letter-spacing:-1px;font-family:var(--sans)}
 .hero-subtitle{color:var(--text-dim);font-size:15px;margin-top:12px;max-width:620px}
 .contact-row{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
-.contact-pill{font-size:12px;color:var(--cyan);text-decoration:none;padding:5px 14px;border:1px solid rgba(255,0,0,0.2);border-radius:30px;transition:all .2s}
-.contact-pill:hover{background:rgba(255,0,0,0.1);border-color:var(--amber)}
+.contact-pill{font-size:12px;color:var(--text);text-decoration:none;padding:5px 14px;border:1px solid rgba(211,47,47,0.3);border-radius:4px;transition:all .2s;background:rgba(255,255,255,0.02)}
+.contact-pill:hover{background:rgba(211,47,47,0.1);border-color:var(--primary);color:var(--primary)}
 
-.metrics-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin-top:32px;padding:18px;background:rgba(255,0,0,0.05);border:1px solid var(--border);border-radius:12px}
-.metric-val{font-size:24px;font-weight:700;color:var(--amber);font-family:var(--sans)}
-.metric-label{font-size:10px;color:var(--text-muted);margin-top:4px}
+/* Теги в стеке технологий — прямоугольные */
+.sctag {
+  font-size: 12px;
+  color: var(--text);
+  padding: 5px 14px;
+  border: 1px solid rgba(211,47,47,0.3);
+  border-radius: 4px;
+  transition: all .2s;
+  background: rgba(255,255,255,0.02);
+  display: inline-block;
+  cursor: default;
+}
+.sctag:hover {
+  background: rgba(211,47,47,0.1);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.metrics-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-top:32px;padding:18px;background:#000000;border:1px solid var(--border);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.5)}
+.metric-val{font-size:24px;font-weight:700;color:var(--text);font-family:var(--sans)}
+.metric-label{font-size:10px;color:var(--text-muted);margin-top:4px;letter-spacing:0.3px}
 
 .section-cmd{font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:8px}
-.section-title{font-size:24px;font-weight:600;color:var(--text);margin-bottom:28px;font-family:var(--sans);letter-spacing:-0.3px}
+.section-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:32px;font-family:var(--sans);letter-spacing:-0.5px;border-left:3px solid var(--primary);padding-left:16px}
 
-/* cards for works (commit style but smoother) */
-.commit{padding:18px 22px;margin-bottom:12px;cursor:pointer;position:relative;border-left:3px solid var(--border-accent);background:rgba(10,10,15,0.5);border-radius:0 12px 12px 0;transition:all .25s ease}
-.commit:hover{background:var(--bg-hover);transform:translateX(4px)}
-.commit.hl{border-left-color:var(--amber);background:rgba(255,0,0,0.07)}
-.commit-header{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:4px}
-.ch{color:var(--amber);font-size:15px;font-weight:700}
+/* Карточки опыта и плагинов — теперь строго чёрные (без синевы) */
+.commit{padding:18px 24px;margin-bottom:14px;cursor:pointer;background:#000000;border-radius:4px;transition:all .25s ease;box-shadow:0 2px 8px rgba(0,0,0,0.5);border:1px solid var(--border);}
+.commit:hover{background:rgba(255,255,255,0.03);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.4);border-color:var(--text-muted);}
+.commit.hl{background:rgba(255,255,255,0.03);border-left:4px solid var(--text-muted);}
+.commit-header{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:6px}
+.ch{color:var(--text);font-size:16px;font-weight:700}
 .cd{color:var(--text-dim);font-size:12px}
-.cm{color:var(--text);font-weight:600;font-size:13px}
-.cc{color:var(--text-muted);font-size:12px;margin-top:4px}
-.commit-details{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(0.33, 1, 0.68, 1)}
-.commit.exp .commit-details{max-height:800px}
-.commit-body{padding-top:14px}
-.cb-list{list-style:none;margin:0 0 10px 0}
-.cb-list li{font-size:12px;color:var(--text-dim);padding:4px 0 4px 20px;position:relative}
-.cb-list li::before{content:'▹';position:absolute;left:0;color:var(--amber)}
-.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.tag{font-size:9px;padding:3px 10px;background:rgba(255,0,0,0.12);color:#ffb3b3;border-radius:20px;letter-spacing:0.3px}
-.commit-hint{position:absolute;right:20px;top:20px;font-size:10px;color:var(--text-muted);opacity:0.6}
+.cm{color:var(--text);font-weight:600;font-size:14px}
+.cc{color:var(--text-muted);font-size:13px;margin-top:4px}
+.commit-details{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(0.33,1,0.68,1)}
+.commit.exp .commit-details{max-height:600px}
+.commit-body{padding-top:16px}
+.cb-list{list-style:none;margin:0 0 12px 0}
+.cb-list li{font-size:13px;color:var(--text-dim);padding:5px 0 5px 22px;position:relative}
+.cb-list li::before{content:'•';position:absolute;left:6px;color:var(--primary);font-size:14px}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+/* Теги внутри карточек — прямоугольные, чёрные с красной окантовкой */
+.tag{font-size:10px;padding:4px 12px;background:#000000;color:var(--text);border-radius:4px;border:1px solid var(--border);}
+.commit-hint{float:right;font-size:10px;color:var(--primary);opacity:0.7}
 .commit.exp .commit-hint{opacity:0}
 
-/* skills */
-.skill-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
-.skill-cat h4{font-size:13px;color:var(--amber);margin-bottom:10px}
-.sct{display:flex;flex-wrap:wrap;gap:6px}
-.sctag{font-size:11px;padding:4px 12px;background:rgba(255,0,0,0.08);border-radius:20px;color:var(--text-dim)}
+.skill-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.skill-cat h4{font-size:14px;color:var(--primary);margin-bottom:12px;font-weight:600}
+.sct{display:flex;flex-wrap:wrap;gap:8px}
 
-/* projects */
-.pc{padding:18px;border:1px solid var(--border);border-radius:16px;transition:all .25s;margin-bottom:12px}
-.pc:hover{border-color:rgba(255,0,0,0.4);background:var(--bg-hover);transform:translateY(-2px)}
-.pt{font-size:16px;font-weight:600;margin-bottom:8px}
+footer{padding:48px 0;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text-muted)}
 
-/* footer */
-footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--text-muted)}
-
-/* reveal animation */
-.rv{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease, transform 0.5s ease}
+.rv{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease, transform 0.6s ease}
 .rv.vis{opacity:1;transform:translateY(0)}
 
-/* terminal mode */
-#terminal-mode{display:none;background:#000;color:#d32f2f;font-family:var(--mono);font-size:14px;min-height:100vh;padding:70px 24px 24px}
+#terminal-mode{display:none;background:#0a0a0a;color:var(--primary);font-family:var(--mono);font-size:14px;min-height:100vh;padding:80px 24px 24px}
 #terminal-mode.active{display:block}
 #normal-mode.hidden{display:none}
-.term-output{white-space:pre-wrap;max-width:800px;margin:0 auto}
-.term-input-line{display:flex;gap:10px;max-width:800px;margin:12px auto 0}
-.term-prompt{color:#d32f2f}
-.term-input{background:transparent;border:none;color:#d32f2f;font-family:var(--mono);font-size:14px;outline:none;flex:1}
+.term-output{white-space:pre-wrap;max-width:860px;margin:0 auto;background:#00000055;padding:16px;border-radius:8px}
+.term-input-line{display:flex;gap:12px;max-width:860px;margin:16px auto 0;background:#00000055;padding:8px 12px;border-radius:8px}
+.term-prompt{color:var(--primary)}
+.term-input{background:transparent;border:none;color:var(--primary);font-family:var(--mono);font-size:14px;outline:none;flex:1}
 </style>
-<!-- Yandex.Metrika -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108231618', 'ym');
-    ym(108231618, 'init', {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
-</script>
 </head>
 <body>
 <div class="glow-tr"></div>
 <nav>
   <div class="nav-logo">~/Al3xPay<span class="s">/starsdev</span></div>
   <div class="nav-links">
-    <a href="#experience">exp</a>
-    <a href="#works">works</a>
-    <a href="#skills">skills</a>
-    <a href="#contact">contact</a>
+    <a href="#experience" data-i18n="nav_exp">exp</a>
+    <a href="#works" data-i18n="nav_works">works</a>
+    <a href="#skills" data-i18n="nav_skills">skills</a>
+    <a href="#contact" data-i18n="nav_contact">contact</a>
+    <button class="lang-toggle" id="lang-toggle" onclick="toggleLanguage()">EN</button>
     <button class="terminal-toggle" id="mode-toggle" onclick="toggleMode()">Terminal</button>
   </div>
 </nav>
@@ -126,198 +150,242 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-
 <div id="normal-mode">
 <div class="container">
 <header class="hero">
-  <div class="hero-label">Senior Java Developer | StarsDev Studio</div>
+  <div class="hero-label" data-i18n="hero_label">Senior Java Developer</div>
   <h1>Алексей Царегородцев</h1>
-  <p class="hero-subtitle">Создаю сложные Minecraft-плагины: кастомные зачарования, рюкзаки, отмычки, квесты, боссов, промокоды. Оптимизация и интеграции.</p>
+  <p class="hero-subtitle" data-i18n="hero_subtitle">Разработка плагинов для Minecraft.</p>
   <div class="contact-row">
     <a class="contact-pill" href="https://github.com/Al3xPay">GitHub</a>
     <a class="contact-pill" href="https://t.me/Al3xPay">Telegram</a>
     <a class="contact-pill" href="mailto:Al3xPayment@gmail.com">Email</a>
   </div>
   <div class="metrics-bar">
-    <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label">проектов</div></div>
-    <div class="metric-item"><div class="metric-val">15+</div><div class="metric-label">плагинов</div></div>
-    <div class="metric-item"><div class="metric-val">100%</div><div class="metric-label">TPS стабильность</div></div>
+    <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label" data-i18n="metric_orders">Выполненных заказов</div></div>
+    <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label" data-i18n="metric_clients">Заказчиков</div></div>
+    <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label" data-i18n="metric_apis">API интеграций</div></div>
   </div>
 </header>
 
 <section id="experience">
-  <div class="section-cmd">$> git log --oneline --author=Al3xPay</div>
-  <h2 class="section-title">Опыт работы</h2>
-  <article class="commit hl" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">WillSlow</span><span class="cd">Фев 2026</span><span class="cm">Главный разработчик</span></div>
-    <div class="cc">Анархический сервер 1.16.5</div>
-    <div class="commit-hint">▼</div>
+  <div class="section-cmd" data-i18n="exp_cmd">$> git log --author=Al3xPay</div>
+  <h2 class="section-title" data-i18n="exp_title">Опыт работы:</h2>
+  <article class="commit" onclick="this.classList.toggle('exp')">
+    <div class="commit-header">
+      <span class="ch">WillSlow</span>
+      <span class="cd" data-i18n="willslow_date">Февраль 2026</span>
+      <span class="cm" data-i18n="willslow_role">Главный разработчик</span>
+      <span class="commit-hint">▼</span>
+    </div>
+    <div class="cc" data-i18n="willslow_desc">Анархический сервер 1.16.5</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>Полная пересборка сервера — оптимизация, новые механики</li><li>Разработка кастомных зачарований (буры, магнетизм, лавомерка)</li><li>Переписал 3 легаси-плагина под PaperAPI</li></ul>
+      <ul class="cb-list" data-i18n-list="willslow_points">
+        <li>Полностью пересобрал сборку сервера</li>
+        <li>Написал большое количество плагинов</li>
+        <li>Настроил и интегрировал множество плагинов</li>
+        <li>Переписал плагины: Antirelog (Lemyoo), SprotectStone (Sleepygarfield), HolyLiteItems (Kotikstasika)</li>
+      </ul>
       <div class="tag-row"><span class="tag">Java</span><span class="tag">PaperAPI</span><span class="tag">Gradle</span></div>
     </div></div>
   </article>
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsDev</span><span class="cd">2025 — н.в.</span><span class="cm">Основатель / Ведущий</span></div>
-    <div class="cc">Студия разработки плагинов на заказ</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header">
+      <span class="ch">StarsDev</span>
+      <span class="cd" data-i18n="starsdev_date">2025 — н.в.</span>
+      <span class="cm" data-i18n="starsdev_role">Основатель / Ведущий разработчик</span>
+      <span class="commit-hint">▼</span>
+    </div>
+    <div class="cc" data-i18n="starsdev_desc">Студия разработки плагинов на заказ</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>Создание уникальных систем: экономика, кастомные предметы, данжи</li><li>Оптимизация сборок, повышение TPS с 12 до 20</li><li>Интеграция MySQL, PlaceholderAPI, Vault, MythicMobs</li></ul>
-      <div class="tag-row"><span class="tag">Java</span><span class="tag">Maven</span><span class="tag">NBT-API</span><span class="tag">ProtocolLib</span></div>
+      <ul class="cb-list" data-i18n-list="starsdev_points">
+        <li>Разработка уникальных систем: экономика, кастомные предметы, PvP-механики</li>
+        <li>Оптимизация готовых сборок, повышение TPS с 5 до 20</li>
+        <li>Интеграция с MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard</li>
+      </ul>
+      <div class="tag-row"><span class="tag">Java</span><span class="tag">Maven</span><span class="tag">NBT-API</span></div>
     </div></div>
   </article>
 </section>
 
-<!-- ALL THE WORKS — на основе присланных конфигов -->
 <section id="works">
-  <div class="section-cmd">$> ls -1 plugins/*/config.yml</div>
-  <h2 class="section-title">Все плагины <span style="font-size:14px; color:#888;">(13 модулей)</span></h2>
-  
-  <!-- 1. StarsItems -->
-  <article class="commit hl" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsItems</span><span class="cd">активный</span><span class="cm">кастомные зачарования + предметы</span></div>
-    <div class="cc">Буры 3x3/6x6/9x9, магнетизм, лавомерка, проклятье светлячка, пыль следователя, пронзающее око, статуя</div>
-    <div class="commit-hint">▼</div>
+  <div class="section-cmd" data-i18n="works_cmd">$> ls -1 plugins/</div>
+  <h2 class="section-title" data-i18n="works_title">Все плагины:</h2>
+
+  <article class="commit" onclick="this.classList.toggle('exp')">
+    <div class="commit-header"><span class="ch">StarsHearts</span><span class="cd" data-i18n="hearts_date">Июнь 2026</span><span class="cm" data-i18n="hearts_customer">Сделано для проекта © CrystalCraft</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="hearts_desc">Написал плагин на кастомные сердца</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list">
-        <li>⚡ <strong>Буры</strong> — копают область 3x3,6x6,9x9 (разрешены только в регионах "mine")</li>
-        <li>🧲 <strong>Магнетизм</strong> — автоподбор предметов в радиусе 3 блока</li>
-        <li>🔥 <strong>Лавомерка</strong> — хождение по лаве, превращает лаву в обсидиан (кулдаун 1с)</li>
-        <li>✨ <strong>Проклятье светлячка</strong> — подсветка цели жёлтым на 5 секунд, частицы</li>
-        <li>🔍 <strong>Пыль следователя</strong> — свечение и раскрытие невидимок в радиусе 10 блоков</li>
-        <li>👁️ <strong>Пронзающее око</strong> — слепота 5с + медлительность II 5с в радиусе 8</li>
-        <li>🗿 <strong>Статуя</strong> — обездвиживание цели на 3 секунды</li>
+      <ul class="cb-list" data-i18n-list="hearts_points">
+        <li><strong>Добавил поддержку CustomModelData</strong></li>
+        <li><strong>Сделал выдачу сердец по отдельной команде</strong></li>
       </ul>
-      <div class="tag-row"><span class="tag">PaperAPI</span><span class="tag">NBT-API</span><span class="tag">PotionEffect</span><span class="tag">CombatMode</span></div>
+      <div class="tag-row"><span class="tag">PotionEffect</span><span class="tag">CustomModelData</span></div>
     </div></div>
   </article>
 
-  <!-- 2. StarsBackpaks -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsBackpaks</span><span class="cd">v1.2</span><span class="cm">умные рюкзаки с автосбором</span></div>
-    <div class="cc">27 слотов, радиус подбора 5 блоков, защита от вложения рюкзаков</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsItems</span><span class="cd" data-i18n="items_date">Май 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="items_desc">Расширяет ванильную механику: буры, магнетизм, лавомерка, пыль следователя, пронзающее око, статуя</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>🎒 Любой предмет может стать рюкзаком (настройка материала, модели)</li><li>⬇️ Shift+ПКМ — автосбор предметов в радиусе из конфига</li><li>🚫 Блокировка шалкеров и рюкзаков внутри рюкзака</li><li>💾 Поддержка SQLite / MySQL, сохранение инвентаря</li></ul>
+      <ul class="cb-list" data-i18n-list="items_points">
+        <li><strong>Буры</strong> — кирки копают область 3x3/6x6/9x9</li>
+        <li><strong>Магнетизм</strong> — автоподбор предметов в радиусе</li>
+        <li><strong>Лавомерка</strong> — хождение по лаве с превращением в обсидиан</li>
+        <li><strong>Проклятье светлячка</strong> — подсветка цели при ударе</li>
+        <li><strong>Пыль следователя</strong> — раскрытие невидимок</li>
+        <li><strong>Пронзающее око</strong> — слепота+медлительность в радиусе</li>
+        <li><strong>Статуя</strong> — обездвиживание цели</li>
+      </ul>
+      <div class="tag-row"><span class="tag">PaperAPI</span><span class="tag">NBT-API</span><span class="tag">PotionEffect</span></div>
+    </div></div>
+  </article>
+
+  <article class="commit" onclick="this.classList.toggle('exp')">
+    <div class="commit-header"><span class="ch">StarsBackpaks</span><span class="cd" data-i18n="backpacks_date">Май 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="backpacks_desc">Позволяет хранить предметы в любом предмете, автосбор дропа по Shift+ПКМ</div>
+    <div class="commit-details"><div class="commit-body">
+      <ul class="cb-list" data-i18n-list="backpacks_points">
+        <li>Любой материал + кастомная модель</li>
+        <li>Автосбор предметов в радиусе</li>
+        <li>Защита от вложения рюкзаков друг в друга</li>
+        <li>Сохранение в SQLite/MySQL</li>
+      </ul>
       <div class="tag-row"><span class="tag">InventoryHolder</span><span class="tag">CustomModelData</span><span class="tag">SQLite</span></div>
     </div></div>
   </article>
 
-  <!-- 3. StarsBarrel (отмычки) -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsBarrel</span><span class="cd">v2.0</span><span class="cm">бочки-ловушки + отмычки</span></div>
-    <div class="cc">6 типов отмычек (шанс 0.5%–15%), голограмма топа, генерация в сундуках</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsBarrel</span><span class="cd" data-i18n="barrel_date">Май 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="barrel_desc">Система бочек, открываемых отмычками разной редкости, выпадение в сундуках данжей</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>🔑 Отмычки: Common(10%), Uncommon(5%), Rare(3%), Epic(2%), Mythic(1%), Legendary(0.5%)</li><li>🎁 Гарантированный лут: от 0 до 4 предметов в зависимости от редкости</li><li>🏆 Голограмма с топом открывателей (формат: %rank%. %player% — %opens%)</li><li>📦 Выпадение отмычек в сундуках данжей с настраиваемыми шансами</li></ul>
-      <div class="tag-row"><span class="tag">HolographicDisplays</span><span class="tag">MySQL</span><span class="tag">ChestLoot</span></div>
+      <ul class="cb-list" data-i18n-list="barrel_points">
+        <li>6 типов отмычек (обычные → легендарные)</li>
+        <li>Гарантированный лут у редких отмычек</li>
+        <li>Голограмма с топом открывателей</li>
+        <li>Интеграция с HolographicDisplays и MySQL</li>
+      </ul>
+      <div class="tag-row"><span class="tag">HolographicDisplays</span><span class="tag">MySQL</span></div>
     </div></div>
   </article>
 
-  <!-- 4. StarsSymbol -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsSymbol</span><span class="cd">динамический</span><span class="cm">плейсхолдер для статусов доната</span></div>
-    <div class="cc">Анимированный символ (☄), радужная анимация, права на типы</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsSymbol</span><span class="cd" data-i18n="symbol_date">Апрель 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="symbol_desc">Символ перед ником, меняющий цвет/анимацию в зависимости от суммы доната</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>🎨 Символ меняет цвет в зависимости от суммы доната: &7, &9, &6&l, animation (радуга)</li><li>⚡ Скорость смены цвета настраивается (rainbow-speed)</li><li>🔒 Права на типы: /starssymbol user <ник> permission set/get/remove</li></ul>
-      <div class="tag-row"><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span><span class="tag">Animation</span></div>
+      <ul class="cb-list" data-i18n-list="symbol_points">
+        <li>Любой юникод-символ (звезда, молния и т.д.)</li>
+        <li>Цветовая градация или радужная анимация</li>
+        <li>Управление правами через команды</li>
+      </ul>
+      <div class="tag-row"><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span></div>
     </div></div>
   </article>
 
-  <!-- 5. StarsQuests -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsQuests</span><span class="cd">ежедневные</span><span class="cm">квесты + магазин коинов</span></div>
-    <div class="cc">40+ квестов, 3 редкости, награды командами, автообновление в 00:00</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsQuests</span><span class="cd" data-i18n="quests_date">Апрель 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="quests_desc">Система квестов с наградами и магазином за коины</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>📜 Типы: убийства, крафт, еда, ходьба, уровень, размещение блоков, взрывчатка</li><li>💰 Награды в квестовых коинах (Common=5, Rare=10, Mythic=20) + выполнение команд</li><li>🛒 Магазин предметов за коины (случайное обновление каждые 24ч, шансы, цена)</li><li>⏱️ Таймер до следующего сброса в меню</li></ul>
+      <ul class="cb-list" data-i18n-list="quests_points">
+        <li>40+ типов квестов, 3 редкости (обычные, редкие, мифические)</li>
+        <li>Награды командами и квестовыми коинами</li>
+        <li>Магазин с автоматическим обновлением каждые 24ч</li>
+        <li>Таймер до сброса в меню</li>
+      </ul>
       <div class="tag-row"><span class="tag">MythicMobs</span><span class="tag">Vault</span><span class="tag">PlaceholderAPI</span></div>
     </div></div>
   </article>
 
-  <!-- 6. StarsMythicMobs (босс Azriel) -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsMythicBoss</span><span class="cd">расписание</span><span class="cm">босс Azriel | 1250❤️</span></div>
-    <div class="cc">Спавн по понедельникам/средам/пятницам в 12:00 и 18:00, топ урона, награды</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsMythicBoss</span><span class="cd" data-i18n="boss_date">Апрель 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="boss_desc">Спавн босса в определённые дни и время, награды по топу урона</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>👾 Босс Azriel (1250 HP) появляется на арене (spawn, 48.5 60 36.5)</li><li>🏅 Топ-3 по урону получают команды: 1 место — 10 алмазов + 1000 монет и т.д.</li><li>📦 Дроп падает на землю в радиусе 5 блоков, сообщение в чат</li><li>⏲️ Задержка перед спавном 10 секунд, расписание в config</li></ul>
+      <ul class="cb-list" data-i18n-list="boss_points">
+        <li>Расписание: дни недели и время из конфига</li>
+        <li>Топ-3 игроков по урону получают награды</li>
+        <li>Интеграция с MythicMobs и SQLite</li>
+      </ul>
       <div class="tag-row"><span class="tag">MythicMobs</span><span class="tag">SQLite</span><span class="tag">Scheduler</span></div>
     </div></div>
   </article>
 
-  <!-- 7. StarsCodes -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsCodes</span><span class="cd">промокоды</span><span class="cm">гибкая система с командами</span></div>
-    <div class="cc">Пример кода Al3xPay: выдача 1M монет + незеритовый слиток</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsCodes</span><span class="cd" data-i18n="codes_date">Март 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="codes_desc">Создание промокодов, выполняющих любые консольные команды, с красивым сообщением</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>🎫 Поддержка любых команд (консольных и от имени игрока)</li><li>📝 Форматирование сообщения с использованием HEX и градиентов</li><li>🔐 Одноразовые / многоразовые коды, срок годности</li></ul>
-      <div class="tag-row"><span class="tag">CommandAPI</span><span class="tag">Vault</span><span class="tag">YAML</span></div>
+      <ul class="cb-list" data-i18n-list="codes_points">
+        <li>Поддержка одноразовых и многоразовых кодов</li>
+        <li>Исполнение любых команд (с плейсхолдером %player%)</li>
+        <li>Кастомизируемое сообщение при активации</li>
+      </ul>
+      <div class="tag-row"><span class="tag">CommandAPI</span><span class="tag">Vault</span></div>
     </div></div>
   </article>
 
-  <!-- 8. StarsUniqueApple -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsUniqueApple</span><span class="cd">кастомная еда</span><span class="cm">яблоки и зелья с нестандартными эффектами</span></div>
-    <div class="cc">8 видов яблок (Второе дыхание, Каменная кровь, Сияние, Плод гнева, Блиц, Высший закон, Небесный прорыв, Импульсивный рывок) + 10 взрывных зелий</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsUniqueApple</span><span class="cd" data-i18n="apple_date">Март 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="apple_desc">Добавляет в игру яблоки с нестандартными эффектами и взрывные зелья</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>🍎 <strong>Второе дыхание</strong> — Реген V (30с), Поглощение V (2мин), огнестойкость + устойчивость</li><li>⚡ <strong>Плод гнева</strong> — иссушение 3с, затем Сила III 20с</li><li>🧪 <strong>Тотальная гибель</strong> (зелье) — слепота, утомление, замедление, отравление + 3 сердца урона</li><li>💥 <strong>Взрывной распад II</strong> — 8 сердец урона</li><li>🌈 <strong>Абсолютная сущность</strong> — сила II, скорость II, огнестойкость, невидимость, реген 30с</li></ul>
-      <div class="tag-row"><span class="tag">PotionEffect</span><span class="tag">CustomModelData</span><span class="tag">LingeringPotion</span></div>
+      <ul class="cb-list" data-i18n-list="apple_points">
+        <li>8 видов яблок (Второе дыхание, Плод гнева, Блиц и др.)</li>
+        <li>10+ взрывных зелий (Тотальная гибель, Распад, Абсолютная сущность)</li>
+        <li>Поддержка CustomModelData и градиентных описаний</li>
+      </ul>
+      <div class="tag-row"><span class="tag">PotionEffect</span><span class="tag">CustomModelData</span></div>
     </div></div>
   </article>
 
-  <!-- 9. StarsAntiRelogFork (из предыдущего диалога) -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsAntiRelogFork</span><span class="cd">PvP control</span><span class="cm">продление/очистка PvP-режима</span></div>
-    <div class="cc">Дополнительные команды: /pvp extend, /pvp clear, /pvp status</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsAntiRelogFork</span><span class="cd" data-i18n="antirelog_date">Март 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="antirelog_desc">Форк Antirelog с дополнительными командами управления PvP-статусом</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>⚔️ Позволяет продлевать PvP-режим, досрочно выходить, проверять таймер</li><li>📊 PlaceholderAPI поддержка для отображения времени в табе</li></ul>
+      <ul class="cb-list" data-i18n-list="antirelog_points">
+        <li>Команды /pvp extend, /pvp clear, /pvp status</li>
+        <li>PlaceholderAPI для отображения таймера</li>
+      </ul>
       <div class="tag-row"><span class="tag">ProtocolLib</span><span class="tag">PlaceholderAPI</span></div>
     </div></div>
   </article>
 
-  <!-- 10. StarsTraps -->
   <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsTraps</span><span class="cd">ловушки</span><span class="cm">кастомные ловушки с проверкой регионов</span></div>
-    <div class="cc">Типы: взрыв, яд, телепорт, оглушение. Работают только в регионах без флага PvP</div>
-    <div class="commit-hint">▼</div>
+    <div class="commit-header"><span class="ch">StarsTraps</span><span class="cd" data-i18n="traps_date">Март 2026</span><span class="commit-hint">▼</span></div>
+    <div class="cc" data-i18n="traps_desc">Позволяет игрокам ставить ловушки (взрыв, яд, телепорт) только в своих регионах</div>
     <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list"><li>🧨 При активации наносят урон/эффекты в зависимости от типа</li><li>🚫 Запрет на установку в чужих регионах (WorldGuard интеграция)</li><li>⏳ Автоочистка через config.yml</li></ul>
-      <div class="tag-row"><span class="tag">WorldGuard</span><span class="tag">BlockPlaceEvent</span><span class="tag">Scheduler</span></div>
+      <ul class="cb-list" data-i18n-list="traps_points">
+        <li>Типы: взрыв, отравление, телепортация, оглушение</li>
+        <li>Интеграция с WorldGuard для проверки флагов</li>
+        <li>Автоматическое удаление через заданное время</li>
+      </ul>
+      <div class="tag-row"><span class="tag">WorldGuard</span><span class="tag">BlockPlaceEvent</span></div>
     </div></div>
   </article>
 </section>
 
 <section id="skills">
-  <div class="section-cmd">$> cat .technologies</div>
-  <h2 class="section-title">Технологии & библиотеки</h2>
+  <div class="section-cmd" data-i18n="skills_cmd">$> cat technologies.md</div>
+  <h2 class="section-title" data-i18n="skills_title">Технологический стек</h2>
   <div class="skill-cats">
-    <div class="skill-cat rv"><h4>Основные</h4><div class="sct"><span class="sctag">Java 17+</span><span class="sctag">PaperAPI</span><span class="sctag">Spigot</span></div></div>
-    <div class="skill-cat rv"><h4>Работа с данными</h4><div class="sct"><span class="sctag">MySQL</span><span class="sctag">SQLite</span><span class="sctag">YAML</span><span class="sctag">HikariCP</span></div></div>
-    <div class="skill-cat rv"><h4>Интеграции</h4><div class="sct"><span class="sctag">PlaceholderAPI</span><span class="sctag">Vault</span><span class="sctag">MythicMobs</span><span class="sctag">WorldGuard</span><span class="sctag">HolographicDisplays</span></div></div>
-    <div class="skill-cat rv"><h4>Низкоуровневые</h4><div class="sct"><span class="sctag">NBT-API</span><span class="sctag">ProtocolLib</span><span class="sctag">Adventure</span></div></div>
-    <div class="skill-cat rv"><h4>Сборка</h4><div class="sct"><span class="sctag">Maven</span><span class="sctag">Gradle</span><span class="sctag">ShadowJar</span></div></div>
+    <div class="skill-cat rv"><h4 data-i18n="skill_lang_title">Языки и платформы</h4><div class="sct"><span class="sctag">Java 17+</span><span class="sctag">PaperAPI</span><span class="sctag">Spigot</span><span class="sctag">Kotlin</span></div></div>
+    <div class="skill-cat rv"><h4 data-i18n="skill_db_title">Базы данных</h4><div class="sct"><span class="sctag">MySQL</span><span class="sctag">SQLite</span><span class="sctag">YAML</span><span class="sctag">JSON</span></div></div>
+    <div class="skill-cat rv"><h4 data-i18n="skill_api_title">Интеграции и API</h4><div class="sct"><span class="sctag">PlaceholderAPI</span><span class="sctag">Vault</span><span class="sctag">MythicMobs</span><span class="sctag">WorldGuard</span><span class="sctag">HolographicDisplays</span><span class="sctag">ProtocolLib</span><span class="sctag">NBT-API</span><span class="sctag">CommandAPI</span></div></div>
+    <div class="skill-cat rv"><h4 data-i18n="skill_devops_title">Сборка и DevOps</h4><div class="sct"><span class="sctag">Maven</span><span class="sctag">Gradle</span><span class="sctag">Git</span><span class="sctag">GitHub Actions</span></div></div>
   </div>
 </section>
 
 <section id="contact">
-  <div class="section-cmd">$> echo $CONTACT</div>
-  <h2 class="section-title">Связь и заказы</h2>
-  <p style="color:var(--text-dim); margin-bottom:20px">Открыт для разработки плагинов, оптимизации серверов, консультаций. Работаю удалённо, в том числе с заказчиками из СНГ и Европы.</p>
+  <div class="section-cmd" data-i18n="contact_cmd">$> echo $CONTACT</div>
+  <h2 class="section-title" data-i18n="contact_title">Связь и сотрудничество</h2>
+  <p style="color:var(--text-dim); margin-bottom:24px" data-i18n="contact_desc">Открыт для заказов на разработку плагинов, оптимизацию серверов, техническое лидирование. Работа удалённо.</p>
   <div class="contact-row">
     <a class="contact-pill" href="mailto:Al3xPayment@gmail.com">Email</a>
     <a class="contact-pill" href="https://t.me/Al3xPay">Telegram</a>
     <a class="contact-pill" href="https://github.com/Al3xPay">GitHub</a>
   </div>
 </section>
-<footer>© 2026 Алексей Царегородцев — все плагины разработаны для Paper 1.16.5+</footer>
+<footer data-i18n="footer">© 2026 Алексей Царегородцев — Senior Java Developer.</footer>
 </div>
 </div>
 
-<!-- TERMINAL MODE -->
 <div id="terminal-mode">
   <div class="term-output" id="term-output">
-    <div>StarsDev Terminal — type 'help' for commands</div>
+    <div>StarsDev Terminal — type 'help' to start</div>
   </div>
   <div class="term-input-line">
     <span class="term-prompt">Al3xPay@starsdev:~$</span>
@@ -326,6 +394,85 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-
 </div>
 
 <script>
+  // TRANSLATIONS
+  const translations = {
+    ru: {
+      nav_exp: "exp", nav_works: "works", nav_skills: "skills", nav_contact: "contact",
+      hero_label: "Senior Java Developer", hero_subtitle: "Разработка плагинов для Minecraft.",
+      metric_orders: "Выполненных заказов", metric_clients: "Заказчиков", metric_apis: "API интеграций",
+      exp_cmd: "$> git log --author=Al3xPay", exp_title: "Опыт работы:",
+      willslow_date: "Февраль 2026", willslow_role: "Главный разработчик", willslow_desc: "Анархический сервер 1.16.5",
+      willslow_points: ["Полностью пересобрал сборку сервера","Написал большое количество плагинов","Настроил и интегрировал множество плагинов","Переписал плагины: Antirelog (Lemyoo), SprotectStone (Sleepygarfield), HolyLiteItems (Kotikstasika)"],
+      starsdev_date: "2025 — н.в.", starsdev_role: "Основатель / Ведущий разработчик", starsdev_desc: "Студия разработки плагинов на заказ",
+      starsdev_points: ["Разработка уникальных систем: экономика, кастомные предметы, PvP-механики","Оптимизация готовых сборок, повышение TPS с 5 до 20","Интеграция с MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard"],
+      works_cmd: "$> ls -1 plugins/", works_title: "Все плагины:",
+      hearts_date: "Июнь 2026", hearts_customer: "Сделано для проекта © CrystalCraft", hearts_desc: "Написал плагин на кастомные сердца", hearts_points: ["Добавил поддержку CustomModelData","Сделал выдачу сердец по отдельной команде"],
+      items_date: "Май 2026", items_desc: "Расширяет ванильную механику: буры, магнетизм, лавомерка, пыль следователя, пронзающее око, статуя", items_points: ["Буры — кирки копают область 3x3/6x6/9x9","Магнетизм — автоподбор предметов в радиусе","Лавомерка — хождение по лаве с превращением в обсидиан","Проклятье светлячка — подсветка цели при ударе","Пыль следователя — раскрытие невидимок","Пронзающее око — слепота+медлительность в радиусе","Статуя — обездвиживание цели"],
+      backpacks_date: "Май 2026", backpacks_desc: "Позволяет хранить предметы в любом предмете, автосбор дропа по Shift+ПКМ", backpacks_points: ["Любой материал + кастомная модель","Автосбор предметов в радиусе","Защита от вложения рюкзаков друг в друга","Сохранение в SQLite/MySQL"],
+      barrel_date: "Май 2026", barrel_desc: "Система бочек, открываемых отмычками разной редкости, выпадение в сундуках данжей", barrel_points: ["6 типов отмычек (обычные → легендарные)","Гарантированный лут у редких отмычек","Голограмма с топом открывателей","Интеграция с HolographicDisplays и MySQL"],
+      symbol_date: "Апрель 2026", symbol_desc: "Символ перед ником, меняющий цвет/анимацию в зависимости от суммы доната", symbol_points: ["Любой юникод-символ (звезда, молния и т.д.)","Цветовая градация или радужная анимация","Управление правами через команды"],
+      quests_date: "Апрель 2026", quests_desc: "Система квестов с наградами и магазином за коины", quests_points: ["40+ типов квестов, 3 редкости (обычные, редкие, мифические)","Награды командами и квестовыми коинами","Магазин с автоматическим обновлением каждые 24ч","Таймер до сброса в меню"],
+      boss_date: "Апрель 2026", boss_desc: "Спавн босса в определённые дни и время, награды по топу урона", boss_points: ["Расписание: дни недели и время из конфига","Топ-3 игроков по урону получают награды","Интеграция с MythicMobs и SQLite"],
+      codes_date: "Март 2026", codes_desc: "Создание промокодов, выполняющих любые консольные команды, с красивым сообщением", codes_points: ["Поддержка одноразовых и многоразовых кодов","Исполнение любых команд (с плейсхолдером %player%)","Кастомизируемое сообщение при активации"],
+      apple_date: "Март 2026", apple_desc: "Добавляет в игру яблоки с нестандартными эффектами и взрывные зелья", apple_points: ["8 видов яблок (Второе дыхание, Плод гнева, Блиц и др.)","10+ взрывных зелий (Тотальная гибель, Распад, Абсолютная сущность)","Поддержка CustomModelData и градиентных описаний"],
+      antirelog_date: "Март 2026", antirelog_desc: "Форк Antirelog с дополнительными командами управления PvP-статусом", antirelog_points: ["Команды /pvp extend, /pvp clear, /pvp status","PlaceholderAPI для отображения таймера"],
+      traps_date: "Март 2026", traps_desc: "Позволяет игрокам ставить ловушки (взрыв, яд, телепорт) только в своих регионах", traps_points: ["Типы: взрыв, отравление, телепортация, оглушение","Интеграция с WorldGuard для проверки флагов","Автоматическое удаление через заданное время"],
+      skills_cmd: "$> cat technologies.md", skills_title: "Технологический стек", skill_lang_title: "Языки и платформы", skill_db_title: "Базы данных", skill_api_title: "Интеграции и API", skill_devops_title: "Сборка и DevOps",
+      contact_cmd: "$> echo $CONTACT", contact_title: "Связь и сотрудничество", contact_desc: "Открыт для заказов на разработку плагинов, оптимизацию серверов, техническое лидирование. Работа удалённо.",
+      footer: "© 2026 Алексей Царегородцев — Senior Java Developer."
+    },
+    en: {
+      nav_exp: "exp", nav_works: "works", nav_skills: "skills", nav_contact: "contact",
+      hero_label: "Senior Java Developer", hero_subtitle: "Minecraft plugins development.",
+      metric_orders: "Completed orders", metric_clients: "Clients", metric_apis: "API integrations",
+      exp_cmd: "$> git log --author=Al3xPay", exp_title: "Work experience:",
+      willslow_date: "February 2026", willslow_role: "Lead Developer", willslow_desc: "Anarchy server 1.16.5",
+      willslow_points: ["Completely rebuilt server build","Developed many plugins","Configured and integrated multiple plugins","Rewritten plugins: Antirelog, SprotectStone, HolyLiteItems"],
+      starsdev_date: "2025 — present", starsdev_role: "Founder / Lead Developer", starsdev_desc: "Custom plugin development studio",
+      starsdev_points: ["Unique systems: economy, custom items, PvP mechanics","Optimized server builds, raised TPS from 5 to 20","Integration with MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard"],
+      works_cmd: "$> ls -1 plugins/", works_title: "All plugins:",
+      hearts_date: "June 2026", hearts_customer: "Made for © CrystalCraft", hearts_desc: "Custom hearts plugin", hearts_points: ["Added CustomModelData support","Hearts giving via command"],
+      items_date: "May 2026", items_desc: "Extends vanilla mechanics: drills, magnetism, lavawalker, tracker dust, piercing eye, statue", items_points: ["Drills — 3x3/6x6/9x9 area mining","Magnetism — item auto-collect in radius","Lavawalker — walk on lava turning into obsidian","Firefly curse — highlight target on hit","Tracker dust — reveal invisible players","Piercing eye — blindness+slowness in radius","Statue — immobilize target"],
+      backpacks_date: "May 2026", backpacks_desc: "Store items inside any item, auto-collect drop with Shift+RMB", backpacks_points: ["Any material + custom model","Auto-collect items in radius","Prevent backpack nesting","SQLite/MySQL storage"],
+      barrel_date: "May 2026", barrel_desc: "Barrel system openable with lockpicks of different rarity, loot from dungeon chests", barrel_points: ["6 lockpick types (common → legendary)","Guaranteed loot for rare lockpicks","Leaderboard hologram","HolographicDisplays + MySQL integration"],
+      symbol_date: "April 2026", symbol_desc: "Prefix symbol changing color/animation based on donation amount", symbol_points: ["Any Unicode symbol (star, lightning, etc.)","Color gradient or rainbow animation","Permission management via commands"],
+      quests_date: "April 2026", quests_desc: "Quest system with rewards and coin shop", quests_points: ["40+ quest types, 3 rarities (common, rare, mythic)","Rewards as commands and quest coins","Shop auto-refresh every 24h","Reset timer in GUI"],
+      boss_date: "April 2026", boss_desc: "Boss spawn on specific days/times, rewards based on damage top", boss_points: ["Schedule: weekdays & time from config","Top 3 damage dealers get rewards","MythicMobs + SQLite integration"],
+      codes_date: "March 2026", codes_desc: "Create promocodes executing any console command with fancy message", codes_points: ["Single-use or multi-use codes","Execute any command (with %player% placeholder)","Customizable activation message"],
+      apple_date: "March 2026", apple_desc: "Adds apples with unique effects and explosive potions", apple_points: ["8 apple types (Second Wind, Wrath Fruit, Blitz, etc.)","10+ explosive potions (Total Annihilation, Decay, Absolute Entity)","CustomModelData + gradient lore support"],
+      antirelog_date: "March 2026", antirelog_desc: "Antirelog fork with additional PvP status management commands", antirelog_points: ["Commands: /pvp extend, /pvp clear, /pvp status","PlaceholderAPI for timer display"],
+      traps_date: "March 2026", traps_desc: "Allows players to place traps (explosion, poison, teleport) only in their regions", traps_points: ["Types: explosion, poison, teleportation, stun","WorldGuard flag integration","Auto-removal after set time"],
+      skills_cmd: "$> cat technologies.md", skills_title: "Tech stack", skill_lang_title: "Languages & Platforms", skill_db_title: "Databases", skill_api_title: "Integrations & APIs", skill_devops_title: "Build & DevOps",
+      contact_cmd: "$> echo $CONTACT", contact_title: "Contact & Cooperation", contact_desc: "Open for plugin development orders, server optimization, technical leadership. Remote work.",
+      footer: "© 2026 Alexey Tsaregorodtsev — Senior Java Developer."
+    }
+  };
+
+  let currentLang = 'ru';
+  function updateLanguage(lang) {
+    const t = translations[lang];
+    if(!t) return;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(t[key]) el.innerText = t[key];
+    });
+    document.querySelectorAll('[data-i18n-list]').forEach(ul => {
+      const key = ul.getAttribute('data-i18n-list');
+      const items = t[key];
+      if(items && Array.isArray(items)) {
+        const lis = ul.querySelectorAll('li');
+        items.forEach((text, idx) => { if(lis[idx]) lis[idx].innerHTML = text; });
+      }
+    });
+    document.getElementById('lang-toggle').innerText = lang === 'ru' ? 'EN' : 'RU';
+    currentLang = lang;
+  }
+
+  function toggleLanguage() {
+    const newLang = currentLang === 'ru' ? 'en' : 'ru';
+    updateLanguage(newLang);
+  }
+
   function toggleMode() {
     const nm = document.getElementById('normal-mode');
     const tm = document.getElementById('terminal-mode');
@@ -342,35 +489,31 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-
     }
   }
 
-  // плавные появления
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.rv').forEach(el => observer.observe(el));
-
-  // анимация для карточек (без задержек)
   document.querySelectorAll('.commit').forEach((c, i) => {
     c.style.opacity = '0';
-    c.style.transform = 'translateX(-8px)';
-    c.style.transition = `opacity 0.3s ease ${i*0.03}s, transform 0.3s ease ${i*0.03}s`;
+    c.style.transform = 'translateY(12px)';
+    c.style.transition = `opacity 0.4s ease ${i*0.05}s, transform 0.4s ease ${i*0.05}s`;
     const obs = new IntersectionObserver(([entry]) => {
       if(entry.isIntersecting) {
         entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateX(0)';
+        entry.target.style.transform = 'translateY(0)';
         obs.unobserve(entry.target);
       }
     }, { threshold: 0.1 });
     obs.observe(c);
   });
 
-  // terminal commands (краткий список)
   const output = document.getElementById('term-output');
   const input = document.getElementById('term-input');
   const commands = {
-    help: () => "Доступно: about, works, skills, contact, clear, exit",
-    about: () => "Алексей Царегородцев, Senior Java Developer. Специализация: Minecraft-плагины, оптимизация, кастомные механики. Студия StarsDev.",
-    works: () => "StarsItems, StarsBackpaks, StarsBarrel, StarsSymbol, StarsQuests, StarsMythicBoss, StarsCodes, StarsUniqueApple, StarsAntiRelog, StarsTraps. Подробнее в секции All The Works.",
-    skills: () => "Java, PaperAPI, MySQL, Gradle, NBT, PlaceholderAPI, Vault, MythicMobs, WorldGuard, ProtocolLib",
+    help: () => "Available: about, works, skills, contact, clear, exit",
+    about: () => "Alexey Tsaregorodtsev, Senior Java Developer. Minecraft plugins.",
+    works: () => "StarsHearts, StarsItems, StarsBackpaks, StarsBarrel, StarsSymbol, StarsQuests, StarsMythicBoss, StarsCodes, StarsUniqueApple, StarsAntiRelog, StarsTraps. Details in 'All plugins' section.",
+    skills: () => "Java, PaperAPI, MySQL, SQLite, PlaceholderAPI, Vault, MythicMobs, WorldGuard, HolographicDisplays, ProtocolLib, NBT-API, CommandAPI, Maven, Gradle",
     contact: () => "Email: Al3xPayment@gmail.com | Telegram: t.me/Al3xPay | GitHub: github.com/Al3xPay",
     clear: () => { output.innerHTML = ''; return null; },
     exit: () => { toggleMode(); return null; }
@@ -382,7 +525,7 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-
         const line = document.createElement('div');
         line.innerHTML = `<span style="color:#d32f2f">Al3xPay@starsdev:~$</span> ${cmd}`;
         output.appendChild(line);
-        const res = commands[cmd] ? commands[cmd]() : `Неизвестно: ${cmd}. Введите help.`;
+        const res = commands[cmd] ? commands[cmd]() : `Unknown command: ${cmd}. Type 'help'.`;
         if(res) { const outDiv = document.createElement('div'); outDiv.textContent = res; output.appendChild(outDiv); }
         input.value = '';
         output.scrollTop = output.scrollHeight;
@@ -390,6 +533,7 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-
     });
   }
   document.getElementById('terminal-mode').addEventListener('click', () => document.getElementById('term-input').focus());
+  updateLanguage('ru');
 </script>
 </body>
 </html>
