@@ -382,7 +382,7 @@ html.js .rv.vis{opacity:1;transform:translateY(0)}
             <div class="dash-name">Al3xPay</div>
             <div class="dash-role" data-i18n="dash_role">StarsDev Studio</div>
           </div>
-          <span class="online-pill tg-status"><span class="dot"></span><span class="st-text" data-i18n="dash_status">онлайн</span></span>
+          <span class="online-pill tg-status"><span class="dot"></span><span class="st-text" data-live>онлайн</span></span>
         </div>
         <div class="bal">
           <div class="bal-label" data-i18n="dash_bal_label">Проектов сдано</div>
@@ -1290,14 +1290,21 @@ const translations = {
 
 let currentLang = 'ru';
 let TG_ONLINE = null;
-function applyTGStatus(online){
-  TG_ONLINE = online;
+function applyTGStatus(data){
+  var online = typeof data === 'boolean' ? data : !!(data && data.online);
+  TG_ONLINE = data;
   document.querySelectorAll('.tg-status').forEach(function(p){
     p.classList.toggle('tg-offline', !online);
-    var t = p.querySelector('.st-text');
+    var t = p.querySelector('.st-text[data-live]');
     if(t){
-      if(!t.dataset.orig) t.dataset.orig = t.textContent;
-      t.textContent = online ? t.dataset.orig : (currentLang === 'ru' ? 'не в сети' : 'offline');
+      if(online){
+        t.textContent = currentLang === 'ru' ? 'онлайн' : 'online';
+      } else {
+        var lbl = (data && data.last_label) ? data.last_label : '';
+        t.textContent = lbl
+          ? (currentLang === 'ru' ? 'был в ' + lbl + ' МСК' : 'seen ' + lbl + ' MSK')
+          : (currentLang === 'ru' ? 'не в сети' : 'offline');
+      }
     }
   });
 }
@@ -1459,10 +1466,19 @@ document.getElementById('terminal-mode').addEventListener('click', () => documen
 /* telegram online status — читает tg-status.json рядом с сайтом */
 (function(){
   if(!document.querySelector('.tg-status')) return;
+  try{
+    var cached = localStorage.getItem('tg-status');
+    if(cached) applyTGStatus(JSON.parse(cached));
+  }catch(e){}
   function poll(){
     fetch('tg-status.json?t=' + Date.now())
       .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(d){ if(d && typeof d.online === 'boolean') applyTGStatus(d.online); })
+      .then(function(d){
+        if(d && typeof d.online === 'boolean'){
+          try{ localStorage.setItem('tg-status', JSON.stringify(d)); }catch(e){}
+          applyTGStatus(d);
+        }
+      })
       .catch(function(){});
   }
   poll();
