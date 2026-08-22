@@ -4,383 +4,1090 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Al3xPay | Senior Java Developer</title>
-<meta name="description" content="Разработка Minecraft-плагинов">
-<meta name="theme-color" content="#d32f2f">
+<meta name="description" content="Разработка Minecraft-плагинов премиум-класса. Кастомные механики, оптимизация серверов, интеграции с любыми API.">
+<meta name="theme-color" content="#000000">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#000000; --bg-card:rgba(10,10,15,0.6); --bg-hover:rgba(211,47,47,0.08);
-  --border:#1f1f2a;
-  --text:#e5e5e5; --text-dim:#aaa; --text-muted:#6c6c7a;
+  --bg:#000000;
+  --card:rgba(255,255,255,.03);
+  --card2:#0b0b11;
+  --border:rgba(255,255,255,.08);
+  --text:#f2f2f5;
+  --dim:#a3a3b2;
+  --muted:#63636f;
   --primary:#d32f2f;
-  --mono:'JetBrains Mono','Fira Code',monospace;
-  --sans:'IBM Plex Sans','Inter',sans-serif;
+  --primary2:#ff5252;
+  --grad:linear-gradient(135deg,#d32f2f 0%,#ff5252 100%);
+  --green:#3ddc84;
+  --disp:'Unbounded',sans-serif;
+  --sans:'Manrope',sans-serif;
+  --mono:'JetBrains Mono',monospace;
 }
-html{scroll-behavior:smooth}
-body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
-::selection{background:rgba(211,47,47,0.3);color:#fff}
-.container{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:10}
-section{padding:60px 0;border-top:1px solid var(--border)}
-section:first-of-type{border-top:none}
-.glow-tr{position:fixed;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(211,47,47,0.04) 0%,transparent 70%);pointer-events:none;z-index:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px;overflow-x:hidden}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;max-width:100vw}
+::selection{background:rgba(211,47,47,.35);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#060606}
+::-webkit-scrollbar-thumb{background:#26262e;border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:#3a3a44}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:5}
 
-nav{position:fixed;top:0;left:0;right:0;padding:12px 24px;background:rgba(5,5,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;display:flex;justify-content:space-between;align-items:center}
-.nav-logo{font-size:13px;color:var(--primary)}.nav-logo .s{color:var(--text-muted)}
-.nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+/* ===== BACKGROUND ===== */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 75%);
+          mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 75%)}
+.orb{position:fixed;border-radius:50%;filter:blur(130px);pointer-events:none;z-index:0}
+.o1{width:620px;height:620px;top:-240px;right:-180px;background:radial-gradient(circle,rgba(211,47,47,.13),transparent 70%)}
+.o2{width:520px;height:520px;bottom:-220px;left:-200px;background:radial-gradient(circle,rgba(255,82,82,.09),transparent 70%)}
+.o3{width:420px;height:420px;top:38%;left:55%;background:radial-gradient(circle,rgba(211,47,47,.08),transparent 70%)}
 
-/* Все кнопки навигации (ссылки, переключатели) — единый стиль как у contact-pill */
-.nav-links a,
-.nav-links .lang-toggle,
-.nav-links .terminal-toggle {
-  font-size: 12px;
-  color: var(--text);
-  text-decoration: none;
-  padding: 5px 14px;
-  border: 1px solid rgba(211,47,47,0.3);
-  border-radius: 4px;
-  transition: all 0.2s;
-  background: rgba(255,255,255,0.02);
-  font-family: var(--mono);
-  cursor: pointer;
-  display: inline-block;
-  line-height: normal;
-}
-.nav-links a:hover,
-.nav-links .lang-toggle:hover,
-.nav-links .terminal-toggle:hover {
-  background: rgba(211,47,47,0.1);
-  border-color: var(--primary);
-  color: var(--primary);
-}
+/* ===== NAVBAR ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 24px;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(5,5,5,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom-color:var(--border)}
+.nav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 20px -6px rgba(211,47,47,.55);flex-shrink:0}
+.logo-mark svg{width:19px;height:19px;stroke:#fff}
+.logo-name{font-family:var(--disp);font-weight:700;font-size:14px;line-height:1.15;letter-spacing:.2px}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase}
+.status-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--dim);padding:5px 13px;border:1px solid var(--border);border-radius:999px;background:var(--card)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(61,220,132,.5);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,220,132,.45)}70%{box-shadow:0 0 0 8px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:6px}
+.nav-links>a{font-size:13.5px;font-weight:600;color:var(--dim);text-decoration:none;padding:8px 15px;border-radius:10px;transition:all .2s}
+.nav-links>a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav-links>a.active{color:var(--primary);background:rgba(211,47,47,.09)}
+.lang-toggle,.terminal-toggle{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--text);padding:7px 14px;border:1px solid rgba(211,47,47,.35);border-radius:10px;background:rgba(211,47,47,.05);cursor:pointer;transition:all .2s;margin-left:4px}
+.lang-toggle:hover,.terminal-toggle:hover{background:rgba(211,47,47,.14);border-color:var(--primary);color:var(--primary)}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;margin-left:auto;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .25s}
 
-@media(max-width:640px){
-  .nav-links{ gap: 8px; }
-  .nav-links a, .nav-links .lang-toggle, .nav-links .terminal-toggle{ padding: 4px 10px; font-size: 10px; }
-}
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;border-radius:13px;font-weight:800;font-size:15px;text-decoration:none;border:none;cursor:pointer;transition:all .22s;font-family:var(--sans)}
+.btn svg{width:17px;height:17px}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 30px -10px rgba(211,47,47,.55)}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 16px 36px -10px rgba(211,47,47,.6)}
+.btn-ghost{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:rgba(211,47,47,.5);color:#fff;transform:translateY(-2px)}
 
-header.hero{padding:110px 0 48px}
-.hero-label{font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:12px}
-.hero h1{font-size:clamp(30px,7vw,44px);font-weight:700;color:var(--primary);letter-spacing:-1px;font-family:var(--sans)}
-.hero-subtitle{color:var(--text-dim);font-size:15px;margin-top:12px;max-width:620px}
-.contact-row{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
-.contact-pill{font-size:12px;color:var(--text);text-decoration:none;padding:5px 14px;border:1px solid rgba(211,47,47,0.3);border-radius:4px;transition:all .2s;background:rgba(255,255,255,0.02)}
-.contact-pill:hover{background:rgba(211,47,47,0.1);border-color:var(--primary);color:var(--primary)}
+/* ===== HERO ===== */
+.hero{position:relative;padding:172px 0 90px;z-index:5}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--dim);padding:8px 16px;border:1px solid var(--border);border-radius:999px;background:var(--card)}
+.hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(32px,5vw,56px);line-height:1.1;letter-spacing:-1px;margin-top:22px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.hero-sub{color:var(--dim);font-size:16.5px;margin-top:20px;max-width:540px}
+.cta-row{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.trust-row{display:flex;gap:22px;margin-top:28px;flex-wrap:wrap}
+.trust-row span{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dim)}
+.trust-row svg{width:16px;height:16px;stroke:var(--primary);flex-shrink:0}
 
-/* Теги в стеке технологий — прямоугольные */
-.sctag {
-  font-size: 12px;
-  color: var(--text);
-  padding: 5px 14px;
-  border: 1px solid rgba(211,47,47,0.3);
-  border-radius: 4px;
-  transition: all .2s;
-  background: rgba(255,255,255,0.02);
-  display: inline-block;
-  cursor: default;
-}
-.sctag:hover {
-  background: rgba(211,47,47,0.1);
-  border-color: var(--primary);
-  color: var(--primary);
-}
+/* dashboard mockup */
+.dash-wrap{position:relative}
+.dash-wrap::before{content:'';position:absolute;inset:-40px;background:radial-gradient(circle at 50% 30%,rgba(211,47,47,.14),transparent 65%);filter:blur(30px);z-index:-1}
+.dashcard{background:rgba(8,8,8,.78);border:1px solid var(--border);border-radius:22px;padding:24px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.dash-head{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.avatar{width:46px;height:46px;border-radius:13px;background:var(--grad);display:grid;place-items:center;font-family:var(--disp);font-weight:700;font-size:19px;color:#fff;flex-shrink:0}
+.dash-name{font-weight:800;font-size:15.5px;line-height:1.2}
+.dash-role{font-size:12px;color:var(--muted)}
+.online-pill{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;color:var(--green);padding:5px 11px;border:1px solid rgba(61,220,132,.3);border-radius:999px;background:rgba(61,220,132,.06)}
+.avatar{position:relative;overflow:hidden}
+.avatar span{position:relative;z-index:0}
+.avatar-img,.logo-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.tg-status.tg-offline .dot{background:#8a8a94;box-shadow:none;animation:none}
+.status-pill.tg-offline{color:var(--muted)}
+.online-pill.tg-offline{color:var(--muted);border-color:var(--border);background:rgba(255,255,255,.03)}
+.bal{margin-top:18px;padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.03)}
+.bal-label{font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.bal-val{display:flex;align-items:baseline;gap:12px;margin-top:4px;font-family:var(--disp);font-weight:700;font-size:27px}
+.bonus-tag{font-family:var(--mono);font-size:11px;color:var(--green);padding:3px 10px;border:1px solid rgba(61,220,132,.3);border-radius:999px;background:rgba(61,220,132,.07)}
+.chips-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.dchip{padding:13px 10px;text-align:center;font-size:12.5px;font-weight:600;color:var(--dim);border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02);transition:all .2s}
+.dchip:hover{border-color:rgba(211,47,47,.45);color:var(--text)}
+.case-row{margin-top:14px;display:flex;align-items:center;gap:12px;padding:14px;border:1px dashed rgba(255,82,82,.4);border-radius:14px;background:rgba(255,82,82,.05)}
+.case-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,82,82,.14);display:grid;place-items:center;flex-shrink:0}
+.case-icon svg{width:17px;height:17px;stroke:var(--primary2)}
+.case-t{font-weight:800;font-size:13.5px;line-height:1.25}
+.case-d{font-size:11.5px;color:var(--muted);line-height:1.4}
+.btn-mini{margin-left:auto;background:var(--grad);color:#fff;font-size:12px;font-weight:800;padding:9px 16px;border-radius:9px;text-decoration:none;white-space:nowrap;transition:filter .2s}
+.btn-mini:hover{filter:brightness(1.1)}
+.feat-list{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+.frow{display:flex;align-items:center;gap:12px}
+.ficon{width:34px;height:34px;border-radius:10px;background:rgba(211,47,47,.11);display:grid;place-items:center;flex-shrink:0}
+.ficon svg{width:15px;height:15px;stroke:var(--primary)}
+.frow strong{font-size:13.5px;font-weight:800;display:block;line-height:1.25}
+.frow small{font-size:11.5px;color:var(--muted)}
 
-.metrics-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-top:32px;padding:18px;background:#000000;border:1px solid var(--border);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.5)}
-.metric-val{font-size:24px;font-weight:700;color:var(--text);font-family:var(--sans)}
-.metric-label{font-size:10px;color:var(--text-muted);margin-top:4px;letter-spacing:0.3px}
+/* ===== STATS ===== */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:84px}
+.stat{text-align:center;padding:28px 16px;border:1px solid var(--border);border-radius:18px;background:var(--card);transition:border-color .25s}
+.stat:hover{border-color:rgba(211,47,47,.4)}
+.stat-num{font-family:var(--disp);font-weight:700;font-size:clamp(26px,3vw,36px);line-height:1}
+.suffix{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:12.5px;color:var(--muted);margin-top:8px}
 
-.section-cmd{font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:8px}
-.section-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:32px;font-family:var(--sans);letter-spacing:-0.5px;border-left:3px solid var(--primary);padding-left:16px}
+/* ===== MARQUEE ===== */
+.marquee{margin-top:96px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:17px 0;position:relative;z-index:5}
+.mq-inner{display:flex;width:max-content;animation:mq 32s linear infinite}
+.marquee:hover .mq-inner{animation-play-state:paused}
+.mq-track{display:inline-flex;align-items:center}
+.mq-item{font-family:var(--mono);font-size:12px;letter-spacing:3px;color:var(--muted);white-space:nowrap}
+.mq-sep{color:var(--primary);margin:0 24px;font-family:var(--mono);font-size:11px}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-/* Карточки опыта и плагинов — теперь строго чёрные (без синевы) */
-.commit{padding:18px 24px;margin-bottom:14px;cursor:pointer;background:#000000;border-radius:4px;transition:all .25s ease;box-shadow:0 2px 8px rgba(0,0,0,0.5);border:1px solid var(--border);}
-.commit:hover{background:rgba(255,255,255,0.03);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.4);border-color:var(--text-muted);}
-.commit.hl{background:rgba(255,255,255,0.03);border-left:4px solid var(--text-muted);}
-.commit-header{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:6px}
-.ch{color:var(--text);font-size:16px;font-weight:700}
-.cd{color:var(--text-dim);font-size:12px}
-.cm{color:var(--text);font-weight:600;font-size:14px}
-.cc{color:var(--text-muted);font-size:13px;margin-top:4px}
-.commit-details{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(0.33,1,0.68,1)}
-.commit.exp .commit-details{max-height:600px}
-.commit-body{padding-top:16px}
-.cb-list{list-style:none;margin:0 0 12px 0}
-.cb-list li{font-size:13px;color:var(--text-dim);padding:5px 0 5px 22px;position:relative}
-.cb-list li::before{content:'•';position:absolute;left:6px;color:var(--primary);font-size:14px}
-.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-/* Теги внутри карточек — прямоугольные, чёрные с красной окантовкой */
-.tag{font-size:10px;padding:4px 12px;background:#000000;color:var(--text);border-radius:4px;border:1px solid var(--border);}
-.commit-hint{float:right;font-size:10px;color:var(--primary);opacity:0.7}
-.commit.exp .commit-hint{opacity:0}
+/* ===== SECTIONS ===== */
+section{position:relative;padding:110px 0;z-index:5}
+.sec-head{max-width:760px;margin:0 auto 56px;text-align:center}
+.sec-cmd{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--primary);margin-bottom:14px}
+.sec-head h2{font-family:var(--disp);font-weight:700;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.5px;line-height:1.15}
+.sec-desc{color:var(--dim);font-size:16px;margin-top:16px}
 
-.skill-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
-.skill-cat h4{font-size:14px;color:var(--primary);margin-bottom:12px;font-weight:600}
+/* ===== PLUGIN CARDS ===== */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:start}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s}
+.pcard:hover{transform:translateY(-4px);border-color:rgba(211,47,47,.45);box-shadow:0 18px 44px -18px rgba(211,47,47,.28)}
+.pcard.open{border-color:rgba(211,47,47,.55)}
+.pcard-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;row-gap:8px}
+.picon{width:44px;height:44px;border-radius:12px;background:rgba(211,47,47,.1);border:1px solid rgba(211,47,47,.22);display:grid;place-items:center;color:var(--primary);flex-shrink:0}
+.picon svg{width:21px;height:21px}
+.ptitle{font-family:var(--disp);font-weight:600;font-size:14.5px;line-height:1.3;padding-top:2px;flex:1;min-width:0;word-break:break-word}
+.pcust{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:4px}
+.pdate{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--muted);padding:4px 10px;border:1px solid var(--border);border-radius:999px;white-space:nowrap;flex-shrink:0}
+.pmore{margin-left:auto;font-size:20px;color:var(--muted);line-height:1;transition:transform .3s,color .3s;flex-shrink:0}
+.pdate+.pmore{margin-left:10px}
+.pcard.open .pmore{transform:rotate(135deg);color:var(--primary)}
+.pdesc{font-size:14px;color:var(--dim);margin-top:14px;line-height:1.65}
+.pdetails{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.33,1,.68,1)}
+.pcard.open .pdetails{max-height:760px}
+.plist{list-style:none;margin-top:14px}
+.plist li{font-size:13px;color:var(--dim);padding:5px 0 5px 18px;position:relative}
+.plist li::before{content:'';position:absolute;left:2px;top:12px;width:6px;height:6px;border-radius:2px;background:var(--grad)}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.tag{font-family:var(--mono);font-size:11px;padding:5px 11px;background:rgba(255,255,255,.04);color:var(--dim);border-radius:8px;border:1px solid var(--border)}
+
+/* ===== EXPERIENCE ===== */
+.timeline{max-width:860px;margin:0 auto}
+.exp-item{position:relative;padding-left:54px;margin-bottom:26px}
+.exp-item::before{content:'';position:absolute;left:15px;top:8px;bottom:-30px;width:2px;background:linear-gradient(rgba(211,47,47,.5),rgba(255,255,255,.06))}
+.exp-item:last-child{margin-bottom:0}
+.exp-item:last-child::before{display:none}
+.exp-dot{position:absolute;left:7px;top:28px;width:18px;height:18px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 5px rgba(211,47,47,.14)}
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s}
+.exp-card:hover{transform:translateY(-3px);border-color:rgba(211,47,47,.4)}
+.exp-card.open{border-color:rgba(211,47,47,.55)}
+.exp-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px}
+.exp-head h3{font-family:var(--disp);font-weight:600;font-size:18px}
+.exp-role{font-family:var(--mono);font-size:12px;color:var(--primary)}
+.exp-desc{font-size:14px;color:var(--muted);margin-top:6px}
+
+/* ===== SKILLS ===== */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:transform .25s,border-color .25s}
+.scard:hover{transform:translateY(-4px);border-color:rgba(211,47,47,.4)}
+.scard h4{font-size:15px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.scard h4::before{content:'';width:4px;height:16px;border-radius:2px;background:var(--grad)}
 .sct{display:flex;flex-wrap:wrap;gap:8px}
+.sctag{font-family:var(--mono);font-size:12px;padding:7px 13px;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.03);color:var(--dim);transition:all .2s;cursor:default}
+.sctag:hover{border-color:var(--primary);color:var(--primary);background:rgba(211,47,47,.07)}
 
-footer{padding:48px 0;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text-muted)}
+/* ===== STEPS ===== */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:30px 26px;transition:border-color .25s,transform .25s}
+.step:hover{border-color:rgba(211,47,47,.4);transform:translateY(-4px)}
+.step::before{content:'';position:absolute;top:0;left:30px;width:46px;height:3px;border-radius:0 0 3px 3px;background:var(--grad)}
+.step-num{position:absolute;top:10px;right:18px;font-family:var(--disp);font-weight:800;font-size:64px;color:rgba(255,255,255,.045);line-height:1}
+.step h3{font-size:16.5px;font-weight:800;margin-bottom:10px;position:relative;padding-right:70px}
+.step p{font-size:14px;color:var(--dim);line-height:1.7;position:relative}
 
-.rv{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease, transform 0.6s ease}
-.rv.vis{opacity:1;transform:translateY(0)}
+/* ===== FAQ ===== */
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden;transition:border-color .25s}
+.faq-item.open{border-color:rgba(211,47,47,.45)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;background:transparent;border:none;color:var(--text);font-family:var(--sans);font-size:15.5px;font-weight:700;text-align:left;padding:20px 24px;cursor:pointer}
+.faq-icon{font-size:20px;color:var(--muted);transition:transform .3s,color .3s;line-height:1;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(135deg);color:var(--primary)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.33,1,.68,1)}
+.faq-a p{padding:0 24px 20px;font-size:14.5px;color:var(--dim);line-height:1.75}
 
-#terminal-mode{display:none;background:#0a0a0a;color:var(--primary);font-family:var(--mono);font-size:14px;min-height:100vh;padding:80px 24px 24px}
+/* ===== CTA ===== */
+.cta-sec{padding-bottom:130px}
+.cta-box{position:relative;text-align:center;border-radius:26px;padding:76px 28px;border:1px solid transparent;
+  background:linear-gradient(#050505,#050505) padding-box,linear-gradient(135deg,rgba(211,47,47,.65),rgba(255,82,82,.65)) border-box;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:520px;height:260px;background:radial-gradient(ellipse,rgba(211,47,47,.16),transparent 70%);pointer-events:none}
+.cta-badge{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--primary);padding:7px 16px;border:1px solid rgba(211,47,47,.35);border-radius:999px;background:rgba(211,47,47,.06)}
+.cta-box h2{font-family:var(--disp);font-weight:700;font-size:clamp(26px,4vw,44px);letter-spacing:-.5px;margin-top:20px}
+.cta-text{color:var(--dim);font-size:16px;margin:16px auto 0;max-width:560px}
+.cta-btns{display:flex;justify-content:center;gap:14px;margin-top:32px;flex-wrap:wrap}
+
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--border);padding:32px 0;position:relative;z-index:5}
+.f-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.f-brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.f-brand b{font-family:var(--disp);color:var(--text);font-weight:700;font-size:13px}
+.f-links{display:flex;gap:20px}
+.f-links a{font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--text)}
+.f-copy{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+/* ===== TERMINAL MODE ===== */
+#terminal-mode{display:none;background:#040404;color:var(--primary);font-family:var(--mono);font-size:14px;min-height:100vh;padding:90px 24px 24px;position:relative;z-index:20}
 #terminal-mode.active{display:block}
 #normal-mode.hidden{display:none}
-.term-output{white-space:pre-wrap;max-width:860px;margin:0 auto;background:#00000055;padding:16px;border-radius:8px}
-.term-input-line{display:flex;gap:12px;max-width:860px;margin:16px auto 0;background:#00000055;padding:8px 12px;border-radius:8px}
+.term-output{white-space:pre-wrap;max-width:860px;margin:0 auto;background:rgba(0,0,0,.4);padding:18px;border-radius:12px;border:1px solid rgba(211,47,47,.15)}
+.term-input-line{display:flex;gap:12px;max-width:860px;margin:16px auto 0;background:rgba(0,0,0,.4);padding:10px 14px;border-radius:12px;border:1px solid rgba(211,47,47,.15)}
 .term-prompt{color:var(--primary)}
-.term-input{background:transparent;border:none;color:var(--primary);font-family:var(--mono);font-size:14px;outline:none;flex:1}
+.term-input{background:transparent;border:none;color:#ffb3ba;font-family:var(--mono);font-size:14px;outline:none;flex:1}
+
+/* ===== REVEAL ANIMATIONS (безопасно: без JS контент виден) ===== */
+html.js .rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+html.js .rv.vis{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){html.js .rv{opacity:1;transform:none;transition:none}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .dash-wrap{max-width:520px;margin:0 auto;width:100%}
+  .hero{padding-top:148px}
+}
+@media(max-width:900px){
+  .stats-bar{grid-template-columns:1fr 1fr;gap:12px}
+  .steps{grid-template-columns:1fr}
+  .burger{display:flex}
+  .nav-links{position:absolute;top:calc(100% + 10px);left:16px;right:16px;flex-direction:column;align-items:stretch;background:rgba(6,6,6,.98);border:1px solid var(--border);border-radius:16px;padding:12px;gap:4px;display:none;backdrop-filter:blur(20px);box-shadow:0 30px 60px -20px rgba(0,0,0,.9);max-height:72vh;overflow-y:auto}
+  .nav-links.open{display:flex}
+  .nav-links>a{padding:13px 16px;font-size:15px}
+  .lang-toggle,.terminal-toggle{margin:6px 4px 2px;text-align:center;padding:11px 14px}
+  nav.scrolled .nav-links{background:rgba(6,6,6,.98)}
+}
+@media(max-width:780px){
+  .status-pill{display:none}
+}
+@media(max-width:640px){
+  .logo-sub{display:none}
+  .container{padding:0 18px}
+  section{padding:76px 0}
+  .hero{padding:128px 0 64px}
+  .hero h1{font-size:clamp(24px,7.2vw,34px);letter-spacing:-.5px;margin-top:18px}
+  .hero-sub{font-size:15px;margin-top:16px}
+  .hero-badge{font-size:11px;padding:7px 13px;letter-spacing:.4px}
+  .cta-row{margin-top:26px;gap:10px}
+  .trust-row{gap:14px 18px;margin-top:22px}
+  .trust-row span{font-size:12px}
+  .stats-bar{margin-top:56px}
+  .stat{padding:20px 10px;border-radius:14px}
+  .stat-label{font-size:11.5px}
+  .marquee{margin-top:64px;padding:14px 0}
+  .sec-head{margin-bottom:38px}
+  .sec-desc{font-size:15px}
+  .dashcard{padding:18px;border-radius:18px}
+  .bal-val{font-size:23px}
+  .pdesc,.exp-desc{font-size:13.5px}
+  .plist li{font-size:12.5px}
+  .tag{font-size:10.5px;padding:4px 9px}
+  .exp-item{padding-left:40px}
+  .exp-item::before{left:10px}
+  .exp-dot{left:2px;top:26px;width:16px;height:16px}
+  .exp-card{padding:22px}
+  .exp-head h3{font-size:16px}
+  .scard{padding:22px}
+  .step{padding:26px 22px}
+  .step-num{font-size:50px;top:8px;right:14px}
+  .faq-q{padding:17px 18px;font-size:14.5px}
+  .faq-a p{padding:0 18px 16px;font-size:13.5px}
+  .cta-sec{padding-bottom:96px}
+  .cta-box{padding:52px 20px;border-radius:20px}
+  .cta-text{font-size:15px}
+  .cta-btns{margin-top:26px}
+  .cta-btns .btn{width:100%}
+  .case-row{flex-wrap:wrap;row-gap:10px}
+  .btn-mini{margin-left:48px}
+  #terminal-mode{padding:84px 14px 20px;font-size:13px}
+  .term-input{font-size:16px}
+}
+@media(max-width:420px){
+  .hero h1{font-size:clamp(22px,8vw,27px)}
+  .cta-row .btn{width:100%}
+  .chips-grid{gap:8px}
+  .dchip{font-size:11.5px;padding:11px 6px}
+  .bal-val{font-size:21px}
+  .bonus-tag{font-size:10px;padding:2px 8px}
+  .online-pill{padding:4px 8px;font-size:9.5px;gap:5px}
+  .picon{width:38px;height:38px;border-radius:10px}
+  .picon svg{width:18px;height:18px}
+  .pdate{font-size:9.5px;padding:3px 8px}
+  .pcard-top{gap:10px}
+  .pcard{padding:20px}
+  .mq-sep{margin:0 14px}
+  .f-in{justify-content:center;text-align:center}
+}
 </style>
 </head>
 <body>
-<div class="glow-tr"></div>
-<nav>
-  <div class="nav-logo">~/Al3xPay<span class="s">/starsdev</span></div>
-  <div class="nav-links">
-    <a href="#experience" data-i18n="nav_exp">exp</a>
-    <a href="#works" data-i18n="nav_works">works</a>
-    <a href="#skills" data-i18n="nav_skills">skills</a>
-    <a href="#contact" data-i18n="nav_contact">contact</a>
-    <button class="lang-toggle" id="lang-toggle" onclick="toggleLanguage()">EN</button>
-    <button class="terminal-toggle" id="mode-toggle" onclick="toggleMode()">Terminal</button>
+
+<div class="bg-grid"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="orb o3"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a class="logo" href="#">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><img class="logo-img" src="avatar.jpg" alt="" onerror="this.remove()"></span>
+      <span><span class="logo-name">Al3xPay</span><br><span class="logo-sub">StarsDev Studio</span></span>
+    </a>
+    <span class="status-pill tg-status"><span class="dot"></span><span class="st-text" data-i18n="nav_status">Онлайн</span></span>
+    <button class="burger" id="burger" onclick="toggleBurger()" aria-label="menu"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="#works" data-i18n="nav_works">Плагины</a>
+      <a href="#experience" data-i18n="nav_exp">Опыт</a>
+      <a href="#skills" data-i18n="nav_skills">Стек</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <a href="#contact" data-i18n="nav_contact">Контакты</a>
+      <button class="lang-toggle" id="lang-toggle" onclick="toggleLanguage()">EN</button>
+      <button class="terminal-toggle" id="mode-toggle" onclick="toggleMode()">Terminal</button>
+    </div>
   </div>
 </nav>
 
 <div id="normal-mode">
-<div class="container">
+
 <header class="hero">
-  <div class="hero-label" data-i18n="hero_label">Senior Java Developer</div>
-  <h1>Al3xPay</h1>
-  <p class="hero-subtitle" data-i18n="hero_subtitle">Разработка плагинов для Minecraft.</p>
-  <div class="contact-row">
-    <a class="contact-pill" href="https://github.com/Al3xPay">GitHub</a>
-    <a class="contact-pill" href="https://t.me/Al3xPay">Telegram</a>
-    <a class="contact-pill" href="mailto:Al3xPayment@gmail.com">Email</a>
+  <div class="container hero-grid">
+    <div class="hero-left rv">
+      <span class="hero-badge"><span class="dot"></span><span data-i18n="hero_badge">Открыт для заказов · Быстрый старт</span></span>
+      <h1><span data-i18n="hero_t1">Разработка Minecraft-плагинов</span><br><span class="grad" data-i18n="hero_t2">премиум-класса</span></h1>
+      <p class="hero-sub" data-i18n="hero_sub">Уникальные механики, кастомные предметы, оптимизация серверов и интеграции с любыми API. От идеи до готового плагина — в кратчайшие сроки.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://t.me/Al3xPay" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg><span data-i18n="btn_order">Заказать плагин</span></a>
+        <a class="btn btn-ghost" href="#works"><span data-i18n="btn_works">Смотреть работы</span></a>
+      </div>
+      <div class="trust-row">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span data-i18n="trust_1">Гарантия качества</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span data-i18n="trust_2">Поддержка после релиза</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span data-i18n="trust_3">Работаю удалённо</span></span>
+      </div>
+    </div>
+    <div class="hero-right dash-wrap rv">
+      <div class="dashcard">
+        <div class="dash-head">
+          <div class="avatar">A</div>
+          <div>
+            <div class="dash-name">Al3xPay</div>
+            <div class="dash-role" data-i18n="dash_role">StarsDev Studio</div>
+          </div>
+          <span class="online-pill tg-status"><span class="dot"></span><span class="st-text" data-i18n="dash_status">онлайн</span></span>
+        </div>
+        <div class="bal">
+          <div class="bal-label" data-i18n="dash_bal_label">Проектов сдано</div>
+          <div class="bal-val">20+<span class="bonus-tag" data-i18n="dash_bonus">+ гарантия</span></div>
+        </div>
+        <div class="chips-grid">
+          <div class="dchip" data-i18n="chip_1">Кастомные предметы</div>
+          <div class="dchip" data-i18n="chip_2">PvP-механики</div>
+          <div class="dchip" data-i18n="chip_3">Экономика</div>
+          <div class="dchip" data-i18n="chip_4">Оптимизация TPS</div>
+        </div>
+        <div class="case-row">
+          <span class="case-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <span>
+            <span class="case-t" data-i18n="dash_case_title">Бесплатная консультация</span><br>
+            <span class="case-d" data-i18n="dash_case_text">Обсудим задачу и оценим сроки прямо сейчас.</span>
+          </span>
+          <a class="btn-mini" href="https://t.me/Al3xPay" target="_blank" rel="noopener" data-i18n="dash_case_btn">Написать</a>
+        </div>
+        <div class="feat-list">
+          <div class="frow">
+            <span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            <span><strong data-i18n="feat_speed_t">Мгновенный ответ</strong><small data-i18n="feat_speed_d">обычно в течение часа</small></span>
+          </div>
+          <div class="frow">
+            <span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <span><strong data-i18n="feat_guar_t">Гарантия правок</strong><small data-i18n="feat_guar_d">14 дней после сдачи</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="metrics-bar">
-    <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label" data-i18n="metric_orders">Выполненных заказов</div></div>
-    <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label" data-i18n="metric_clients">Заказчиков</div></div>
-    <div class="metric-item"><div class="metric-val">20+</div><div class="metric-label" data-i18n="metric_apis">API интеграций</div></div>
+  <div class="container stats-bar rv">
+    <div class="stat"><div class="stat-num"><span class="cnt" data-target="20">0</span><span class="suffix">+</span></div><div class="stat-label" data-i18n="stat_orders">Выполненных заказов</div></div>
+    <div class="stat"><div class="stat-num"><span class="cnt" data-target="20">0</span><span class="suffix">+</span></div><div class="stat-label" data-i18n="stat_clients">Заказчиков</div></div>
+    <div class="stat"><div class="stat-num"><span class="cnt" data-target="20">0</span><span class="suffix">+</span></div><div class="stat-label" data-i18n="stat_apis">API интеграций</div></div>
+    <div class="stat"><div class="stat-num"><span class="cnt" data-target="27">0</span></div><div class="stat-label" data-i18n="stat_plugins">Плагинов создано</div></div>
   </div>
 </header>
 
-<section id="experience">
-  <div class="section-cmd" data-i18n="exp_cmd">$> git log --author=Al3xPay</div>
-  <h2 class="section-title" data-i18n="exp_title">Опыт работы:</h2>
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header">
-      <span class="ch">WillSlow</span>
-      <span class="cd" data-i18n="willslow_date">Февраль 2026</span>
-      <span class="cm" data-i18n="willslow_role">Главный разработчик</span>
-      <span class="commit-hint">▼</span>
-    </div>
-    <div class="cc" data-i18n="willslow_desc">Анархический сервер 1.16.5</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="willslow_points">
-        <li>Полностью пересобрал сборку сервера</li>
-        <li>Написал большое количество плагинов</li>
-        <li>Настроил и интегрировал множество плагинов</li>
-        <li>Переписал плагины: Antirelog (Lemyoo), SprotectStone (Sleepygarfield), HolyLiteItems (Kotikstasika)</li>
-      </ul>
-      <div class="tag-row"><span class="tag">Java</span><span class="tag">PaperAPI</span><span class="tag">Gradle</span></div>
-    </div></div>
-  </article>
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header">
-      <span class="ch">StarsDev</span>
-      <span class="cd" data-i18n="starsdev_date">2025 — н.в.</span>
-      <span class="cm" data-i18n="starsdev_role">Основатель / Ведущий разработчик</span>
-      <span class="commit-hint">▼</span>
-    </div>
-    <div class="cc" data-i18n="starsdev_desc">Студия разработки плагинов на заказ</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="starsdev_points">
-        <li>Разработка уникальных систем: экономика, кастомные предметы, PvP-механики</li>
-        <li>Оптимизация готовых сборок, повышение TPS с 5 до 20</li>
-        <li>Интеграция с MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard</li>
-      </ul>
-      <div class="tag-row"><span class="tag">Java</span><span class="tag">Maven</span><span class="tag">NBT-API</span></div>
-    </div></div>
-  </article>
-</section>
+<div class="marquee">
+  <div class="mq-inner">
+    <span class="mq-track">
+      <span class="mq-item">JAVA 17</span><span class="mq-sep">//</span><span class="mq-item">PAPER API</span><span class="mq-sep">//</span><span class="mq-item">SPIGOT</span><span class="mq-sep">//</span><span class="mq-item">KOTLIN</span><span class="mq-sep">//</span><span class="mq-item">MYSQL</span><span class="mq-sep">//</span><span class="mq-item">SQLITE</span><span class="mq-sep">//</span><span class="mq-item">PLACEHOLDERAPI</span><span class="mq-sep">//</span><span class="mq-item">VAULT</span><span class="mq-sep">//</span><span class="mq-item">MYTHICMOBS</span><span class="mq-sep">//</span><span class="mq-item">WORLDGUARD</span><span class="mq-sep">//</span><span class="mq-item">PROTOCOLLIB</span><span class="mq-sep">//</span><span class="mq-item">NBT-API</span><span class="mq-sep">//</span><span class="mq-item">COMMANDAPI</span><span class="mq-sep">//</span><span class="mq-item">MAVEN</span><span class="mq-sep">//</span><span class="mq-item">GRADLE</span><span class="mq-sep">//</span><span class="mq-item">GIT</span><span class="mq-sep">//</span>
+    </span>
+    <span class="mq-track" aria-hidden="true">
+      <span class="mq-item">JAVA 17</span><span class="mq-sep">//</span><span class="mq-item">PAPER API</span><span class="mq-sep">//</span><span class="mq-item">SPIGOT</span><span class="mq-sep">//</span><span class="mq-item">KOTLIN</span><span class="mq-sep">//</span><span class="mq-item">MYSQL</span><span class="mq-sep">//</span><span class="mq-item">SQLITE</span><span class="mq-sep">//</span><span class="mq-item">PLACEHOLDERAPI</span><span class="mq-sep">//</span><span class="mq-item">VAULT</span><span class="mq-sep">//</span><span class="mq-item">MYTHICMOBS</span><span class="mq-sep">//</span><span class="mq-item">WORLDGUARD</span><span class="mq-sep">//</span><span class="mq-item">PROTOCOLLIB</span><span class="mq-sep">//</span><span class="mq-item">NBT-API</span><span class="mq-sep">//</span><span class="mq-item">COMMANDAPI</span><span class="mq-sep">//</span><span class="mq-item">MAVEN</span><span class="mq-sep">//</span><span class="mq-item">GRADLE</span><span class="mq-sep">//</span><span class="mq-item">GIT</span><span class="mq-sep">//</span>
+    </span>
+  </div>
+</div>
 
 <section id="works">
-  <div class="section-cmd" data-i18n="works_cmd">$> ls -1 plugins/</div>
-  <h2 class="section-title" data-i18n="works_title">Все плагины:</h2>
+  <div class="container">
+    <div class="sec-head rv">
+      <div class="sec-cmd" data-i18n="works_cmd">$&gt; ls -1 plugins/</div>
+      <h2 data-i18n="works_title">Все плагины:</h2>
+      <p class="sec-desc" data-i18n="works_desc">Собственная линейка Stars*-плагинов и проекты под заказ: готовые решения и уникальные механики для серверов любых масштабов. Нажмите на карточку, чтобы увидеть детали.</p>
+    </div>
+    <div class="pgrid">
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsHearts</span><span class="cd" data-i18n="hearts_date">Июнь 2026</span><span class="cm" data-i18n="hearts_customer">Сделано для проекта © CrystalCraft</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="hearts_desc">Написал плагин на кастомные сердца</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="hearts_points">
-        <li><strong>Добавил поддержку CustomModelData</strong></li>
-        <li><strong>Сделал выдачу сердец по отдельной команде</strong></li>
-      </ul>
-      <div class="tag-row"><span class="tag">PotionEffect</span><span class="tag">CustomModelData</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+          <span class="ptitle">StarsHearts<span class="pcust" data-i18n="hearts_customer">Сделано для проекта © CrystalCraft</span></span>
+          <span class="pdate" data-i18n="hearts_date">Июнь 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="hearts_desc">Написал плагин на кастомные сердца</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="hearts_points">
+            <li>Добавил поддержку CustomModelData</li>
+            <li>Сделал выдачу сердец по отдельной команде</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PotionEffect</span><span class="tag">CustomModelData</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsItems</span><span class="cd" data-i18n="items_date">Май 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="items_desc">Расширяет ванильную механику: буры, магнетизм, лавомерка, пыль следователя, пронзающее око, статуя</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="items_points">
-        <li><strong>Буры</strong> — кирки копают область 3x3/6x6/9x9</li>
-        <li><strong>Магнетизм</strong> — автоподбор предметов в радиусе</li>
-        <li><strong>Лавомерка</strong> — хождение по лаве с превращением в обсидиан</li>
-        <li><strong>Проклятье светлячка</strong> — подсветка цели при ударе</li>
-        <li><strong>Пыль следователя</strong> — раскрытие невидимок</li>
-        <li><strong>Пронзающее око</strong> — слепота+медлительность в радиусе</li>
-        <li><strong>Статуя</strong> — обездвиживание цели</li>
-      </ul>
-      <div class="tag-row"><span class="tag">PaperAPI</span><span class="tag">NBT-API</span><span class="tag">PotionEffect</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <span class="ptitle">StarsItems</span>
+          <span class="pdate" data-i18n="items_date">Май 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="items_desc">Расширяет ванильную механику: буры, магнетизм, лавомерка, пыль следователя, пронзающее око, статуя</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="items_points">
+            <li>Буры — кирки копают область 3x3/6x6/9x9</li>
+            <li>Магнетизм — автоподбор предметов в радиусе</li>
+            <li>Лавомерка — хождение по лаве с превращением в обсидиан</li>
+            <li>Проклятье светлячка — подсветка цели при ударе</li>
+            <li>Пыль следователя — раскрытие невидимок</li>
+            <li>Пронзающее око — слепота+медлительность в радиусе</li>
+            <li>Статуя — обездвиживание цели</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PaperAPI</span><span class="tag">NBT-API</span><span class="tag">PotionEffect</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsBackpaks</span><span class="cd" data-i18n="backpacks_date">Май 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="backpacks_desc">Позволяет хранить предметы в любом предмете, автосбор дропа по Shift+ПКМ</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="backpacks_points">
-        <li>Любой материал + кастомная модель</li>
-        <li>Автосбор предметов в радиусе</li>
-        <li>Защита от вложения рюкзаков друг в друга</li>
-        <li>Сохранение в SQLite/MySQL</li>
-      </ul>
-      <div class="tag-row"><span class="tag">InventoryHolder</span><span class="tag">CustomModelData</span><span class="tag">SQLite</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+          <span class="ptitle">StarsBackpaks</span>
+          <span class="pdate" data-i18n="backpacks_date">Май 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="backpacks_desc">Позволяет хранить предметы в любом предмете, автосбор дропа по Shift+ПКМ</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="backpacks_points">
+            <li>Любой материал + кастомная модель</li>
+            <li>Автосбор предметов в радиусе</li>
+            <li>Защита от вложения рюкзаков друг в друга</li>
+            <li>Сохранение в SQLite/MySQL</li>
+          </ul>
+          <div class="tag-row"><span class="tag">InventoryHolder</span><span class="tag">CustomModelData</span><span class="tag">SQLite</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsBarrel</span><span class="cd" data-i18n="barrel_date">Май 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="barrel_desc">Система бочек, открываемых отмычками разной редкости, выпадение в сундуках данжей</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="barrel_points">
-        <li>6 типов отмычек (обычные → легендарные)</li>
-        <li>Гарантированный лут у редких отмычек</li>
-        <li>Голограмма с топом открывателей</li>
-        <li>Интеграция с HolographicDisplays и MySQL</li>
-      </ul>
-      <div class="tag-row"><span class="tag">HolographicDisplays</span><span class="tag">MySQL</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span>
+          <span class="ptitle">StarsBarrel</span>
+          <span class="pdate" data-i18n="barrel_date">Май 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="barrel_desc">Система бочек, открываемых отмычками разной редкости, выпадение в сундуках данжей</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="barrel_points">
+            <li>6 типов отмычек (обычные → легендарные)</li>
+            <li>Гарантированный лут у редких отмычек</li>
+            <li>Голограмма с топом открывателей</li>
+            <li>Интеграция с HolographicDisplays и MySQL</li>
+          </ul>
+          <div class="tag-row"><span class="tag">HolographicDisplays</span><span class="tag">MySQL</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsSymbol</span><span class="cd" data-i18n="symbol_date">Апрель 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="symbol_desc">Символ перед ником, меняющий цвет/анимацию в зависимости от суммы доната</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="symbol_points">
-        <li>Любой юникод-символ (звезда, молния и т.д.)</li>
-        <li>Цветовая градация или радужная анимация</li>
-        <li>Управление правами через команды</li>
-      </ul>
-      <div class="tag-row"><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+          <span class="ptitle">StarsSymbol</span>
+          <span class="pdate" data-i18n="symbol_date">Апрель 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="symbol_desc">Символ перед ником, меняющий цвет/анимацию в зависимости от суммы доната</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="symbol_points">
+            <li>Любой юникод-символ (звезда, молния и т.д.)</li>
+            <li>Цветовая градация или радужная анимация</li>
+            <li>Управление правами через команды</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsQuests</span><span class="cd" data-i18n="quests_date">Апрель 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="quests_desc">Система квестов с наградами и магазином за коины</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="quests_points">
-        <li>40+ типов квестов, 3 редкости (обычные, редкие, мифические)</li>
-        <li>Награды командами и квестовыми коинами</li>
-        <li>Магазин с автоматическим обновлением каждые 24ч</li>
-        <li>Таймер до сброса в меню</li>
-      </ul>
-      <div class="tag-row"><span class="tag">MythicMobs</span><span class="tag">Vault</span><span class="tag">PlaceholderAPI</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+          <span class="ptitle">StarsQuests</span>
+          <span class="pdate" data-i18n="quests_date">Апрель 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="quests_desc">Система квестов с наградами и магазином за коины</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="quests_points">
+            <li>40+ типов квестов, 3 редкости (обычные, редкие, мифические)</li>
+            <li>Награды командами и квестовыми коинами</li>
+            <li>Магазин с автоматическим обновлением каждые 24ч</li>
+            <li>Таймер до сброса в меню</li>
+          </ul>
+          <div class="tag-row"><span class="tag">MythicMobs</span><span class="tag">Vault</span><span class="tag">PlaceholderAPI</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsMythicBoss</span><span class="cd" data-i18n="boss_date">Апрель 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="boss_desc">Спавн босса в определённые дни и время, награды по топу урона</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="boss_points">
-        <li>Расписание: дни недели и время из конфига</li>
-        <li>Топ-3 игроков по урону получают награды</li>
-        <li>Интеграция с MythicMobs и SQLite</li>
-      </ul>
-      <div class="tag-row"><span class="tag">MythicMobs</span><span class="tag">SQLite</span><span class="tag">Scheduler</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></span>
+          <span class="ptitle">StarsMythicBoss</span>
+          <span class="pdate" data-i18n="boss_date">Апрель 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="boss_desc">Спавн босса в определённые дни и время, награды по топу урона</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="boss_points">
+            <li>Расписание: дни недели и время из конфига</li>
+            <li>Топ-3 игроков по урону получают награды</li>
+            <li>Интеграция с MythicMobs и SQLite</li>
+          </ul>
+          <div class="tag-row"><span class="tag">MythicMobs</span><span class="tag">SQLite</span><span class="tag">Scheduler</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsCodes</span><span class="cd" data-i18n="codes_date">Март 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="codes_desc">Создание промокодов, выполняющих любые консольные команды, с красивым сообщением</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="codes_points">
-        <li>Поддержка одноразовых и многоразовых кодов</li>
-        <li>Исполнение любых команд (с плейсхолдером %player%)</li>
-        <li>Кастомизируемое сообщение при активации</li>
-      </ul>
-      <div class="tag-row"><span class="tag">CommandAPI</span><span class="tag">Vault</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span>
+          <span class="ptitle">StarsCodes</span>
+          <span class="pdate" data-i18n="codes_date">Март 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="codes_desc">Создание промокодов, выполняющих любые консольные команды, с красивым сообщением</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="codes_points">
+            <li>Поддержка одноразовых и многоразовых кодов</li>
+            <li>Исполнение любых команд (с плейсхолдером %player%)</li>
+            <li>Кастомизируемое сообщение при активации</li>
+          </ul>
+          <div class="tag-row"><span class="tag">CommandAPI</span><span class="tag">Vault</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsUniqueApple</span><span class="cd" data-i18n="apple_date">Март 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="apple_desc">Добавляет в игру яблоки с нестандартными эффектами и взрывные зелья</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="apple_points">
-        <li>8 видов яблок (Второе дыхание, Плод гнева, Блиц и др.)</li>
-        <li>10+ взрывных зелий (Тотальная гибель, Распад, Абсолютная сущность)</li>
-        <li>Поддержка CustomModelData и градиентных описаний</li>
-      </ul>
-      <div class="tag-row"><span class="tag">PotionEffect</span><span class="tag">CustomModelData</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>
+          <span class="ptitle">StarsUniqueApple</span>
+          <span class="pdate" data-i18n="apple_date">Март 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="apple_desc">Добавляет в игру яблоки с нестандартными эффектами и взрывные зелья</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="apple_points">
+            <li>8 видов яблок (Второе дыхание, Плод гнева, Блиц и др.)</li>
+            <li>10+ взрывных зелий (Тотальная гибель, Распад, Абсолютная сущность)</li>
+            <li>Поддержка CustomModelData и градиентных описаний</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PotionEffect</span><span class="tag">CustomModelData</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsAntiRelogFork</span><span class="cd" data-i18n="antirelog_date">Март 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="antirelog_desc">Форк Antirelog с дополнительными командами управления PvP-статусом</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="antirelog_points">
-        <li>Команды /pvp extend, /pvp clear, /pvp status</li>
-        <li>PlaceholderAPI для отображения таймера</li>
-      </ul>
-      <div class="tag-row"><span class="tag">ProtocolLib</span><span class="tag">PlaceholderAPI</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span class="ptitle">StarsAntiRelogFork</span>
+          <span class="pdate" data-i18n="antirelog_date">Март 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="antirelog_desc">Форк Antirelog с дополнительными командами управления PvP-статусом</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="antirelog_points">
+            <li>Команды /pvp extend, /pvp clear, /pvp status</li>
+            <li>PlaceholderAPI для отображения таймера</li>
+          </ul>
+          <div class="tag-row"><span class="tag">ProtocolLib</span><span class="tag">PlaceholderAPI</span></div>
+        </div>
+      </article>
 
-  <article class="commit" onclick="this.classList.toggle('exp')">
-    <div class="commit-header"><span class="ch">StarsTraps</span><span class="cd" data-i18n="traps_date">Март 2026</span><span class="commit-hint">▼</span></div>
-    <div class="cc" data-i18n="traps_desc">Позволяет игрокам ставить ловушки (взрыв, яд, телепорт) только в своих регионах</div>
-    <div class="commit-details"><div class="commit-body">
-      <ul class="cb-list" data-i18n-list="traps_points">
-        <li>Типы: взрыв, отравление, телепортация, оглушение</li>
-        <li>Интеграция с WorldGuard для проверки флагов</li>
-        <li>Автоматическое удаление через заданное время</li>
-      </ul>
-      <div class="tag-row"><span class="tag">WorldGuard</span><span class="tag">BlockPlaceEvent</span></div>
-    </div></div>
-  </article>
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <span class="ptitle">StarsTraps</span>
+          <span class="pdate" data-i18n="traps_date">Март 2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="traps_desc">Позволяет игрокам ставить ловушки (взрыв, яд, телепорт) только в своих регионах</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="traps_points">
+            <li>Типы: взрыв, отравление, телепортация, оглушение</li>
+            <li>Интеграция с WorldGuard для проверки флагов</li>
+            <li>Автоматическое удаление через заданное время</li>
+          </ul>
+          <div class="tag-row"><span class="tag">WorldGuard</span><span class="tag">BlockPlaceEvent</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span class="ptitle">StarsAC</span>
+          <span class="pdate" data-i18n="ac_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="ac_desc">Собственный античит с ИИ-анализом поведения, GUI проверок и системой репортов</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="ac_points">
+            <li>AI-модуль анализа движений и боёв</li>
+            <li>GUI панель проверок и менеджер детектов</li>
+            <li>Репорты и режим слежки за игроком</li>
+            <li>Голограммы и кэш текстур при проверках</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PaperAPI</span><span class="tag">GUI</span><span class="tag">Protocol</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+          <span class="ptitle">StarsAirDrop</span>
+          <span class="pdate" data-i18n="airdrop_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="airdrop_desc">Аирдропы с падающими сундуками: редактор лута в игре, защита блока и уведомления</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="airdrop_points">
+            <li>Редактор лута прямо из игры через GUI</li>
+            <li>Защита сундука от чужих рук до вскрытия</li>
+            <li>Discord-вебхуки о дропах и получателях</li>
+            <li>Меню управления спавном аирдропов</li>
+          </ul>
+          <div class="tag-row"><span class="tag">WorldEdit</span><span class="tag">WorldGuard</span><span class="tag">Webhooks</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="ptitle">StarsAntiPodSos</span>
+          <span class="pdate" data-i18n="antipodsos_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="antipodsos_desc">Блокирует подбор лута после смерти — запрещает «подсасывать» вещи убитых игроков</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="antipodsos_points">
+            <li>Фильтрация подбора по источнику дропа</li>
+            <li>Правила для убийцы и жертвы из конфига</li>
+            <li>Автоочистка лута по таймеру</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Bukkit Events</span><span class="tag">PDC</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+          <span class="ptitle">StarsCustomBlock</span>
+          <span class="pdate" data-i18n="customblock_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="customblock_desc">Кастомные функциональные блоки на головах: фермер, чанклоадер, бустер, налоговый сундук</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="customblock_points">
+            <li>Тики-задачи: фермерство, хопперы, генерация</li>
+            <li>Чанклоадеры и бустеры скорости</li>
+            <li>Налоговый сундук — сбор в казну</li>
+            <li>GUI управление всеми блоками</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PDC</span><span class="tag">Skulls</span><span class="tag">GUI</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+          <span class="ptitle">StarsDMarket</span>
+          <span class="pdate" data-i18n="dmarket_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="dmarket_desc">Маркетплейс донат-валюты и предметов: ордера, обмены и полная история сделок</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="dmarket_points">
+            <li>Ордена на покупку и продажу предметов</li>
+            <li>Обмен поинтов и донат-валюты</li>
+            <li>История транзакций + Discord-вебхуки</li>
+            <li>Хранение в SQLite/MySQL</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Vault</span><span class="tag">MySQL</span><span class="tag">GUI</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+          <span class="ptitle">StarsEnd</span>
+          <span class="pdate" data-i18n="end_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="end_desc">Расписной ивент в Энде: спавн яиц и структур по таймингам с предупреждениями</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="end_points">
+            <li>Расписание по часовому поясу сервера</li>
+            <li>Предупреждения за 5/3/1 минуту</li>
+            <li>Авто-респавн дракона консольной командой</li>
+            <li>Плейсхолдеры статуса ивента</li>
+          </ul>
+          <div class="tag-row"><span class="tag">WorldEdit</span><span class="tag">PlaceholderAPI</span><span class="tag">Scheduler</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+          <span class="ptitle">StarsExp</span>
+          <span class="pdate" data-i18n="exp_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="exp_desc">Эксп-экономика: магазин за опыт, кастомные бутылочки и кулоны удачи</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="exp_points">
+            <li>Магазин за опыт через GUI</li>
+            <li>Кастомные бутылочки опыта</li>
+            <li>Кулоны с пассивными эффектами</li>
+            <li>Боевые бонусы от уровня</li>
+          </ul>
+          <div class="tag-row"><span class="tag">GUI</span><span class="tag">PDC</span><span class="tag">PotionEffect</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+          <span class="ptitle">StarsExpLvL</span>
+          <span class="pdate" data-i18n="explvl_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="explvl_desc">Отдельная система уровней с сохранением и плейсхолдерами для других плагинов</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="explvl_points">
+            <li>Свой уровень вместо ванильного</li>
+            <li>Надёжное хранение данных игроков</li>
+            <li>Плейсхолдеры %level% через PAPI</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PlaceholderAPI</span><span class="tag">Storage</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          <span class="ptitle">StarsNewtonApple</span>
+          <span class="pdate" data-i18n="newtonapple_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="newtonapple_desc">Ивент «Яблоня»: дерево из схематика, фазы созревания, боссбар и сбор урожая</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="newtonapple_points">
+            <li>Спавн дерева по схематику WorldEdit</li>
+            <li>Фазы: цветение → спелость → падение яблок</li>
+            <li>Боссбар, голограммы и партиклы</li>
+            <li>Discord-уведомления об ивенте</li>
+          </ul>
+          <div class="tag-row"><span class="tag">WorldEdit</span><span class="tag">WorldGuard</span><span class="tag">BossBar</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
+          <span class="ptitle">StarsPrefix</span>
+          <span class="pdate" data-i18n="prefix_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="prefix_desc">Магазин префиксов через GUI с покупкой цветов и градиентов за валюту</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="prefix_points">
+            <li>Выбор префикса в удобном меню</li>
+            <li>Покраска символов по цене за цвет</li>
+            <li>Оплата через Vault / PlayerPoints</li>
+            <li>Плейсхолдеры для чат-плагинов</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PlaceholderAPI</span><span class="tag">Vault</span><span class="tag">PlayerPoints</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+          <span class="ptitle">StarsQuarry</span>
+          <span class="pdate" data-i18n="quarry_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="quarry_desc">Ивентовый карьер: спецкирка копает область, житель продаёт апгрейды</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="quarry_points">
+            <li>Карьер по схематику с ротацией</li>
+            <li>Прогресс на скорборде и боссбаре</li>
+            <li>NPC-торговец и магазин улучшений</li>
+            <li>Защита территорий через WorldGuard</li>
+          </ul>
+          <div class="tag-row"><span class="tag">WorldEdit</span><span class="tag">Scoreboard</span><span class="tag">Villager GUI</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></span>
+          <span class="ptitle">StarsRecipe</span>
+          <span class="pdate" data-i18n="recipe_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="recipe_desc">Конструктор рецептов прямо в игре: создавай крафты через GUI без конфигов</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="recipe_points">
+            <li>Редактор рецептов в инвентаре</li>
+            <li>Список всех кастомных крафтов</li>
+            <li>Форменные и бесформенные рецепты</li>
+            <li>Сохранение предметов с NBT</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Recipes API</span><span class="tag">GUI</span><span class="tag">Serialization</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span class="ptitle">StarsRegion</span>
+          <span class="pdate" data-i18n="region_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="region_desc">Приватация территорий игроками: лимиты по правам, голограммы и управление</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="region_points">
+            <li>Выделение и создание региона командой</li>
+            <li>Лимиты приватов по группам LuckPerms</li>
+            <li>Голограммы над регионами</li>
+            <li>Автозадачи обслуживания зон</li>
+          </ul>
+          <div class="tag-row"><span class="tag">WorldGuard</span><span class="tag">LuckPerms</span><span class="tag">Holograms</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></span>
+          <span class="ptitle">StarsRtp</span>
+          <span class="pdate" data-i18n="rtp_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="rtp_desc">Рандомный телепорт по миру с поиском безопасной точки и учётом приваток</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="rtp_points">
+            <li>Поиск безопасной площадки для приземления</li>
+            <li>Обход регионов и опасных зон</li>
+            <li>Кулдауны и лимиты телепортов</li>
+          </ul>
+          <div class="tag-row"><span class="tag">WorldGuard</span><span class="tag">Scheduler</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 14v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span class="ptitle">StarsVote</span>
+          <span class="pdate" data-i18n="vote_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="vote_desc">Автоголосования за следующий ивент: GUI-опросы с весами шансов</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="vote_points">
+            <li>Автозапуск опросов по интервалу онлайн-таблицы</li>
+            <li>Веса шансов для каждого ивента</li>
+            <li>GUI голосования с таймером</li>
+            <li>Спавн победителя консольной командой</li>
+          </ul>
+          <div class="tag-row"><span class="tag">PaperAPI</span><span class="tag">GUI</span><span class="tag">Scheduler</span></div>
+        </div>
+      </article>
+
+      <article class="pcard rv">
+        <div class="pcard-top">
+          <span class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span>
+          <span class="ptitle">StarsTelegramShop</span>
+          <span class="pdate" data-i18n="tgshop_date">2026</span>
+          <span class="pmore">+</span>
+        </div>
+        <p class="pdesc" data-i18n="tgshop_desc">Telegram-магазин доната: покупка товаров ботом с промокодами и историей заказов</p>
+        <div class="pdetails">
+          <ul class="plist" data-i18n-list="tgshop_points">
+            <li>Полный флоу покупки внутри бота</li>
+            <li>Промокоды и история покупок</li>
+            <li>Привязка Telegram к игровому нику</li>
+            <li>SQLite база заказов и игроков</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Telegram Bot API</span><span class="tag">SQLite</span><span class="tag">JSON</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="sec-head rv">
+      <div class="sec-cmd" data-i18n="exp_cmd">$&gt; git log --author=Al3xPay</div>
+      <h2 data-i18n="exp_title">Опыт работы:</h2>
+    </div>
+    <div class="timeline">
+      <div class="exp-item rv">
+        <span class="exp-dot"></span>
+        <article class="exp-card">
+          <div class="exp-head">
+            <h3>WillSlow</h3>
+            <span class="exp-role" data-i18n="willslow_role">Главный разработчик</span>
+            <span class="pdate" data-i18n="willslow_date">Февраль 2026</span>
+            <span class="pmore">+</span>
+          </div>
+          <p class="exp-desc" data-i18n="willslow_desc">Анархический сервер 1.16.5</p>
+          <div class="pdetails">
+            <ul class="plist" data-i18n-list="willslow_points">
+              <li>Полностью пересобрал сборку сервера</li>
+              <li>Написал большое количество плагинов</li>
+              <li>Настроил и интегрировал множество плагинов</li>
+              <li>Переписал плагины: Antirelog (Lemyoo), SprotectStone (Sleepygarfield), HolyLiteItems (Kotikstasika)</li>
+            </ul>
+            <div class="tag-row"><span class="tag">Java</span><span class="tag">PaperAPI</span><span class="tag">Gradle</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="exp-item rv">
+        <span class="exp-dot"></span>
+        <article class="exp-card">
+          <div class="exp-head">
+            <h3>StarsDev</h3>
+            <span class="exp-role" data-i18n="starsdev_role">Основатель / Ведущий разработчик</span>
+            <span class="pdate" data-i18n="starsdev_date">2025 — н.в.</span>
+            <span class="pmore">+</span>
+          </div>
+          <p class="exp-desc" data-i18n="starsdev_desc">Студия разработки плагинов на заказ</p>
+          <div class="pdetails">
+            <ul class="plist" data-i18n-list="starsdev_points">
+              <li>Разработка уникальных систем: экономика, кастомные предметы, PvP-механики</li>
+              <li>Оптимизация готовых сборок, повышение TPS с 5 до 20</li>
+              <li>Интеграция с MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard</li>
+            </ul>
+            <div class="tag-row"><span class="tag">Java</span><span class="tag">Maven</span><span class="tag">NBT-API</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="skills">
-  <div class="section-cmd" data-i18n="skills_cmd">$> cat technologies.md</div>
-  <h2 class="section-title" data-i18n="skills_title">Технологический стек</h2>
-  <div class="skill-cats">
-    <div class="skill-cat rv"><h4 data-i18n="skill_lang_title">Языки и платформы</h4><div class="sct"><span class="sctag">Java 17+</span><span class="sctag">PaperAPI</span><span class="sctag">Spigot</span><span class="sctag">Kotlin</span></div></div>
-    <div class="skill-cat rv"><h4 data-i18n="skill_db_title">Базы данных</h4><div class="sct"><span class="sctag">MySQL</span><span class="sctag">SQLite</span><span class="sctag">YAML</span><span class="sctag">JSON</span></div></div>
-    <div class="skill-cat rv"><h4 data-i18n="skill_api_title">Интеграции и API</h4><div class="sct"><span class="sctag">PlaceholderAPI</span><span class="sctag">Vault</span><span class="sctag">MythicMobs</span><span class="sctag">WorldGuard</span><span class="sctag">HolographicDisplays</span><span class="sctag">ProtocolLib</span><span class="sctag">NBT-API</span><span class="sctag">CommandAPI</span></div></div>
-    <div class="skill-cat rv"><h4 data-i18n="skill_devops_title">Сборка и DevOps</h4><div class="sct"><span class="sctag">Maven</span><span class="sctag">Gradle</span><span class="sctag">Git</span><span class="sctag">GitHub Actions</span></div></div>
+  <div class="container">
+    <div class="sec-head rv">
+      <div class="sec-cmd" data-i18n="skills_cmd">$&gt; cat technologies.md</div>
+      <h2 data-i18n="skills_title">Технологический стек</h2>
+    </div>
+    <div class="skill-grid">
+      <div class="scard rv"><h4 data-i18n="skill_lang_title">Языки и платформы</h4><div class="sct"><span class="sctag">Java 17+</span><span class="sctag">PaperAPI</span><span class="sctag">Spigot</span><span class="sctag">Kotlin</span></div></div>
+      <div class="scard rv"><h4 data-i18n="skill_db_title">Базы данных</h4><div class="sct"><span class="sctag">MySQL</span><span class="sctag">SQLite</span><span class="sctag">YAML</span><span class="sctag">JSON</span></div></div>
+      <div class="scard rv"><h4 data-i18n="skill_api_title">Интеграции и API</h4><div class="sct"><span class="sctag">PlaceholderAPI</span><span class="sctag">Vault</span><span class="sctag">MythicMobs</span><span class="sctag">WorldGuard</span><span class="sctag">HolographicDisplays</span><span class="sctag">ProtocolLib</span><span class="sctag">NBT-API</span><span class="sctag">CommandAPI</span></div></div>
+      <div class="scard rv"><h4 data-i18n="skill_devops_title">Сборка и DevOps</h4><div class="sct"><span class="sctag">Maven</span><span class="sctag">Gradle</span><span class="sctag">Git</span><span class="sctag">GitHub Actions</span></div></div>
+    </div>
   </div>
 </section>
 
-<section id="contact">
-  <div class="section-cmd" data-i18n="contact_cmd">$> echo $CONTACT</div>
-  <h2 class="section-title" data-i18n="contact_title">Связь и сотрудничество</h2>
-  <p style="color:var(--text-dim); margin-bottom:24px" data-i18n="contact_desc">Открыт для заказов на разработку плагинов, оптимизацию серверов, техническое лидирование. Работа удалённо.</p>
-  <div class="contact-row">
-    <a class="contact-pill" href="mailto:Al3xPayment@gmail.com">Email</a>
-    <a class="contact-pill" href="https://t.me/Al3xPay">Telegram</a>
-    <a class="contact-pill" href="https://github.com/Al3xPay">GitHub</a>
+<section id="process">
+  <div class="container">
+    <div class="sec-head rv">
+      <div class="sec-cmd">$&gt; cat workflow.md</div>
+      <h2 data-i18n="proc_title">Как я работаю</h2>
+      <p class="sec-desc" data-i18n="proc_desc">Прозрачный процесс из трёх шагов — вы всегда знаете, на каком этапе ваш проект.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv"><span class="step-num">01</span><h3 data-i18n="step1_t">Заявка и обсуждение</h3><p data-i18n="step1_d">Пишете в Telegram, описываете задачу — я уточняю детали, предлагаю решение и называю цену.</p></div>
+      <div class="step rv"><span class="step-num">02</span><h3 data-i18n="step2_t">Разработка и тесты</h3><p data-i18n="step2_d">Пишу код, тестирую на реальном сервере и показываю промежуточные результаты.</p></div>
+      <div class="step rv"><span class="step-num">03</span><h3 data-i18n="step3_t">Сдача и поддержка</h3><p data-i18n="step3_d">Передаю плагин с документацией. 14 дней бесплатных правок после сдачи.</p></div>
+    </div>
   </div>
 </section>
-<footer data-i18n="footer">© 2026 Al3xPay — Senior Java Developer.</footer>
-</div>
+
+<section id="faq">
+  <div class="container">
+    <div class="sec-head rv">
+      <div class="sec-cmd">$&gt; man al3xpay</div>
+      <h2 data-i18n="faq_title">Вопросы и ответы</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item rv">
+        <button class="faq-q"><span data-i18n="faq_q1">Сколько стоит разработка плагина?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><p data-i18n="faq_a1">Цена зависит от сложности: простые механики дешевле, крупные системы с интеграциями дороже. Точную оценку даю бесплатно после обсуждения задачи.</p></div>
+      </div>
+      <div class="faq-item rv">
+        <button class="faq-q"><span data-i18n="faq_q2">Какие сроки выполнения?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><p data-i18n="faq_a2">Небольшие плагины — от 1 до 3 дней, крупные системы — от недели. Дедлайн согласовывается заранее и всегда соблюдается.</p></div>
+      </div>
+      <div class="faq-item rv">
+        <button class="faq-q"><span data-i18n="faq_q3">Есть ли гарантия на код?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><p data-i18n="faq_a3">Да. После сдачи действуют 14 дней бесплатных исправлений багов, а также помощь при обновлении версий сервера.</p></div>
+      </div>
+      <div class="faq-item rv">
+        <button class="faq-q"><span data-i18n="faq_q4">С какими версиями Minecraft вы работаете?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><p data-i18n="faq_a4">От 1.8 до актуальных версий Paper и Spigot. Интеграции с PlaceholderAPI, Vault, MythicMobs, WorldGuard и другими популярными плагинами.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta-sec">
+  <div class="container">
+    <div class="cta-box rv">
+      <span class="cta-badge" data-i18n="cta_badge">Первый шаг — одно сообщение</span>
+      <h2 data-i18n="cta_title">Готовы начать проект?</h2>
+      <p class="cta-text" data-i18n="cta_text">Напишите мне в Telegram — обсудим задачу и получите бесплатную оценку сроков и стоимости.</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary" href="https://t.me/Al3xPay" target="_blank" rel="noopener"><span data-i18n="cta_btn_tg">Написать в Telegram</span></a>
+        <a class="btn btn-ghost" href="mailto:Al3xPayment@gmail.com"><span data-i18n="cta_btn_mail">Написать на Email</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container f-in">
+    <div class="f-brand"><span class="logo-mark" style="width:30px;height:30px;border-radius:9px"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><b>Al3xPay</b>&nbsp;· StarsDev Studio</div>
+    <div class="f-links">
+      <a href="#works" data-i18n="nav_works">Плагины</a>
+      <a href="#experience" data-i18n="nav_exp">Опыт</a>
+      <a href="#skills" data-i18n="nav_skills">Стек</a>
+      <a href="https://github.com/Al3xPay" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://t.me/Al3xPay" target="_blank" rel="noopener">Telegram</a>
+    </div>
+    <div class="f-copy" data-i18n="footer_text">© 2026 Al3xPay — Senior Java Developer.</div>
+  </div>
+</footer>
+
 </div>
 
 <div id="terminal-mode">
@@ -394,146 +1101,374 @@ footer{padding:48px 0;border-top:1px solid var(--border);text-align:center;font-
 </div>
 
 <script>
-  // TRANSLATIONS
-  const translations = {
-    ru: {
-      nav_exp: "exp", nav_works: "works", nav_skills: "skills", nav_contact: "contact",
-      hero_label: "Senior Java Developer", hero_subtitle: "Разработка плагинов для Minecraft.",
-      metric_orders: "Выполненных заказов", metric_clients: "Заказчиков", metric_apis: "API интеграций",
-      exp_cmd: "$> git log --author=Al3xPay", exp_title: "Опыт работы:",
-      willslow_date: "Февраль 2026", willslow_role: "Главный разработчик", willslow_desc: "Анархический сервер 1.16.5",
-      willslow_points: ["Полностью пересобрал сборку сервера","Написал большое количество плагинов","Настроил и интегрировал множество плагинов","Переписал плагины: Antirelog (Lemyoo), SprotectStone (Sleepygarfield), HolyLiteItems (Kotikstasika)"],
-      starsdev_date: "2025 — н.в.", starsdev_role: "Основатель / Ведущий разработчик", starsdev_desc: "Студия разработки плагинов на заказ",
-      starsdev_points: ["Разработка уникальных систем: экономика, кастомные предметы, PvP-механики","Оптимизация готовых сборок, повышение TPS с 5 до 20","Интеграция с MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard"],
-      works_cmd: "$> ls -1 plugins/", works_title: "Все плагины:",
-      hearts_date: "Июнь 2026", hearts_customer: "Сделано для проекта © CrystalCraft", hearts_desc: "Написал плагин на кастомные сердца", hearts_points: ["Добавил поддержку CustomModelData","Сделал выдачу сердец по отдельной команде"],
-      items_date: "Май 2026", items_desc: "Расширяет ванильную механику: буры, магнетизм, лавомерка, пыль следователя, пронзающее око, статуя", items_points: ["Буры — кирки копают область 3x3/6x6/9x9","Магнетизм — автоподбор предметов в радиусе","Лавомерка — хождение по лаве с превращением в обсидиан","Проклятье светлячка — подсветка цели при ударе","Пыль следователя — раскрытие невидимок","Пронзающее око — слепота+медлительность в радиусе","Статуя — обездвиживание цели"],
-      backpacks_date: "Май 2026", backpacks_desc: "Позволяет хранить предметы в любом предмете, автосбор дропа по Shift+ПКМ", backpacks_points: ["Любой материал + кастомная модель","Автосбор предметов в радиусе","Защита от вложения рюкзаков друг в друга","Сохранение в SQLite/MySQL"],
-      barrel_date: "Май 2026", barrel_desc: "Система бочек, открываемых отмычками разной редкости, выпадение в сундуках данжей", barrel_points: ["6 типов отмычек (обычные → легендарные)","Гарантированный лут у редких отмычек","Голограмма с топом открывателей","Интеграция с HolographicDisplays и MySQL"],
-      symbol_date: "Апрель 2026", symbol_desc: "Символ перед ником, меняющий цвет/анимацию в зависимости от суммы доната", symbol_points: ["Любой юникод-символ (звезда, молния и т.д.)","Цветовая градация или радужная анимация","Управление правами через команды"],
-      quests_date: "Апрель 2026", quests_desc: "Система квестов с наградами и магазином за коины", quests_points: ["40+ типов квестов, 3 редкости (обычные, редкие, мифические)","Награды командами и квестовыми коинами","Магазин с автоматическим обновлением каждые 24ч","Таймер до сброса в меню"],
-      boss_date: "Апрель 2026", boss_desc: "Спавн босса в определённые дни и время, награды по топу урона", boss_points: ["Расписание: дни недели и время из конфига","Топ-3 игроков по урону получают награды","Интеграция с MythicMobs и SQLite"],
-      codes_date: "Март 2026", codes_desc: "Создание промокодов, выполняющих любые консольные команды, с красивым сообщением", codes_points: ["Поддержка одноразовых и многоразовых кодов","Исполнение любых команд (с плейсхолдером %player%)","Кастомизируемое сообщение при активации"],
-      apple_date: "Март 2026", apple_desc: "Добавляет в игру яблоки с нестандартными эффектами и взрывные зелья", apple_points: ["8 видов яблок (Второе дыхание, Плод гнева, Блиц и др.)","10+ взрывных зелий (Тотальная гибель, Распад, Абсолютная сущность)","Поддержка CustomModelData и градиентных описаний"],
-      antirelog_date: "Март 2026", antirelog_desc: "Форк Antirelog с дополнительными командами управления PvP-статусом", antirelog_points: ["Команды /pvp extend, /pvp clear, /pvp status","PlaceholderAPI для отображения таймера"],
-      traps_date: "Март 2026", traps_desc: "Позволяет игрокам ставить ловушки (взрыв, яд, телепорт) только в своих регионах", traps_points: ["Типы: взрыв, отравление, телепортация, оглушение","Интеграция с WorldGuard для проверки флагов","Автоматическое удаление через заданное время"],
-      skills_cmd: "$> cat technologies.md", skills_title: "Технологический стек", skill_lang_title: "Языки и платформы", skill_db_title: "Базы данных", skill_api_title: "Интеграции и API", skill_devops_title: "Сборка и DevOps",
-      contact_cmd: "$> echo $CONTACT", contact_title: "Связь и сотрудничество", contact_desc: "Открыт для заказов на разработку плагинов, оптимизацию серверов, техническое лидирование. Работа удалённо.",
-      footer: "© 2026 Al3xPay — Senior Java Developer."
-    },
-    en: {
-      nav_exp: "exp", nav_works: "works", nav_skills: "skills", nav_contact: "contact",
-      hero_label: "Senior Java Developer", hero_subtitle: "Minecraft plugins development.",
-      metric_orders: "Completed orders", metric_clients: "Clients", metric_apis: "API integrations",
-      exp_cmd: "$> git log --author=Al3xPay", exp_title: "Work experience:",
-      willslow_date: "February 2026", willslow_role: "Lead Developer", willslow_desc: "Anarchy server 1.16.5",
-      willslow_points: ["Completely rebuilt server build","Developed many plugins","Configured and integrated multiple plugins","Rewritten plugins: Antirelog, SprotectStone, HolyLiteItems"],
-      starsdev_date: "2025 — present", starsdev_role: "Founder / Lead Developer", starsdev_desc: "Custom plugin development studio",
-      starsdev_points: ["Unique systems: economy, custom items, PvP mechanics","Optimized server builds, raised TPS from 5 to 20","Integration with MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard"],
-      works_cmd: "$> ls -1 plugins/", works_title: "All plugins:",
-      hearts_date: "June 2026", hearts_customer: "Made for © CrystalCraft", hearts_desc: "Custom hearts plugin", hearts_points: ["Added CustomModelData support","Hearts giving via command"],
-      items_date: "May 2026", items_desc: "Extends vanilla mechanics: drills, magnetism, lavawalker, tracker dust, piercing eye, statue", items_points: ["Drills — 3x3/6x6/9x9 area mining","Magnetism — item auto-collect in radius","Lavawalker — walk on lava turning into obsidian","Firefly curse — highlight target on hit","Tracker dust — reveal invisible players","Piercing eye — blindness+slowness in radius","Statue — immobilize target"],
-      backpacks_date: "May 2026", backpacks_desc: "Store items inside any item, auto-collect drop with Shift+RMB", backpacks_points: ["Any material + custom model","Auto-collect items in radius","Prevent backpack nesting","SQLite/MySQL storage"],
-      barrel_date: "May 2026", barrel_desc: "Barrel system openable with lockpicks of different rarity, loot from dungeon chests", barrel_points: ["6 lockpick types (common → legendary)","Guaranteed loot for rare lockpicks","Leaderboard hologram","HolographicDisplays + MySQL integration"],
-      symbol_date: "April 2026", symbol_desc: "Prefix symbol changing color/animation based on donation amount", symbol_points: ["Any Unicode symbol (star, lightning, etc.)","Color gradient or rainbow animation","Permission management via commands"],
-      quests_date: "April 2026", quests_desc: "Quest system with rewards and coin shop", quests_points: ["40+ quest types, 3 rarities (common, rare, mythic)","Rewards as commands and quest coins","Shop auto-refresh every 24h","Reset timer in GUI"],
-      boss_date: "April 2026", boss_desc: "Boss spawn on specific days/times, rewards based on damage top", boss_points: ["Schedule: weekdays & time from config","Top 3 damage dealers get rewards","MythicMobs + SQLite integration"],
-      codes_date: "March 2026", codes_desc: "Create promocodes executing any console command with fancy message", codes_points: ["Single-use or multi-use codes","Execute any command (with %player% placeholder)","Customizable activation message"],
-      apple_date: "March 2026", apple_desc: "Adds apples with unique effects and explosive potions", apple_points: ["8 apple types (Second Wind, Wrath Fruit, Blitz, etc.)","10+ explosive potions (Total Annihilation, Decay, Absolute Entity)","CustomModelData + gradient lore support"],
-      antirelog_date: "March 2026", antirelog_desc: "Antirelog fork with additional PvP status management commands", antirelog_points: ["Commands: /pvp extend, /pvp clear, /pvp status","PlaceholderAPI for timer display"],
-      traps_date: "March 2026", traps_desc: "Allows players to place traps (explosion, poison, teleport) only in their regions", traps_points: ["Types: explosion, poison, teleportation, stun","WorldGuard flag integration","Auto-removal after set time"],
-      skills_cmd: "$> cat technologies.md", skills_title: "Tech stack", skill_lang_title: "Languages & Platforms", skill_db_title: "Databases", skill_api_title: "Integrations & APIs", skill_devops_title: "Build & DevOps",
-      contact_cmd: "$> echo $CONTACT", contact_title: "Contact & Cooperation", contact_desc: "Open for plugin development orders, server optimization, technical leadership. Remote work.",
-      footer: "© 2026 Alexey Tsaregorodtsev — Senior Java Developer."
+const translations = {
+  ru: {
+    nav_works:"Плагины", nav_exp:"Опыт", nav_skills:"Стек", nav_faq:"FAQ", nav_contact:"Контакты",
+    nav_status:"Открыт для заказов",
+    hero_badge:"Открыт для заказов · Быстрый старт",
+    hero_t1:"Разработка Minecraft-плагинов", hero_t2:"премиум-класса",
+    hero_sub:"Уникальные механики, кастомные предметы, оптимизация серверов и интеграции с любыми API. От идеи до готового плагина — в кратчайшие сроки.",
+    btn_order:"Заказать плагин", btn_works:"Смотреть работы",
+    trust_1:"Гарантия качества", trust_2:"Поддержка после релиза", trust_3:"Работаю удалённо",
+    dash_role:"StarsDev Studio", dash_status:"онлайн",
+    dash_bal_label:"Проектов сдано", dash_bonus:"+ гарантия",
+    chip_1:"Кастомные предметы", chip_2:"PvP-механики", chip_3:"Экономика", chip_4:"Оптимизация TPS",
+    dash_case_title:"Бесплатная консультация", dash_case_text:"Обсудим задачу и оценим сроки прямо сейчас.", dash_case_btn:"Написать",
+    feat_speed_t:"Мгновенный ответ", feat_speed_d:"обычно в течение часа",
+    feat_guar_t:"Гарантия правок", feat_guar_d:"14 дней после сдачи",
+    stat_orders:"Выполненных заказов", stat_clients:"Заказчиков", stat_apis:"API интеграций", stat_plugins:"Плагинов создано",
+    works_cmd:"$> ls -1 plugins/", works_title:"Все плагины:",
+    works_desc:"Собственная линейка Stars*-плагинов и проекты под заказ: готовые решения и уникальные механики для серверов любых масштабов. Нажмите на карточку, чтобы увидеть детали.",
+    hearts_date:"Июнь 2026", hearts_customer:"Сделано для проекта © CrystalCraft", hearts_desc:"Написал плагин на кастомные сердца",
+    hearts_points:["Добавил поддержку CustomModelData","Сделал выдачу сердец по отдельной команде"],
+    items_date:"Май 2026", items_desc:"Расширяет ванильную механику: буры, магнетизм, лавомерка, пыль следователя, пронзающее око, статуя",
+    items_points:["Буры — кирки копают область 3x3/6x6/9x9","Магнетизм — автоподбор предметов в радиусе","Лавомерка — хождение по лаве с превращением в обсидиан","Проклятье светлячка — подсветка цели при ударе","Пыль следователя — раскрытие невидимок","Пронзающее око — слепота+медлительность в радиусе","Статуя — обездвиживание цели"],
+    backpacks_date:"Май 2026", backpacks_desc:"Позволяет хранить предметы в любом предмете, автосбор дропа по Shift+ПКМ",
+    backpacks_points:["Любой материал + кастомная модель","Автосбор предметов в радиусе","Защита от вложения рюкзаков друг в друга","Сохранение в SQLite/MySQL"],
+    barrel_date:"Май 2026", barrel_desc:"Система бочек, открываемых отмычками разной редкости, выпадение в сундуках данжей",
+    barrel_points:["6 типов отмычек (обычные → легендарные)","Гарантированный лут у редких отмычек","Голограмма с топом открывателей","Интеграция с HolographicDisplays и MySQL"],
+    symbol_date:"Апрель 2026", symbol_desc:"Символ перед ником, меняющий цвет/анимацию в зависимости от суммы доната",
+    symbol_points:["Любой юникод-символ (звезда, молния и т.д.)","Цветовая градация или радужная анимация","Управление правами через команды"],
+    quests_date:"Апрель 2026", quests_desc:"Система квестов с наградами и магазином за коины",
+    quests_points:["40+ типов квестов, 3 редкости (обычные, редкие, мифические)","Награды командами и квестовыми коинами","Магазин с автоматическим обновлением каждые 24ч","Таймер до сброса в меню"],
+    boss_date:"Апрель 2026", boss_desc:"Спавн босса в определённые дни и время, награды по топу урона",
+    boss_points:["Расписание: дни недели и время из конфига","Топ-3 игроков по урону получают награды","Интеграция с MythicMobs и SQLite"],
+    codes_date:"Март 2026", codes_desc:"Создание промокодов, выполняющих любые консольные команды, с красивым сообщением",
+    codes_points:["Поддержка одноразовых и многоразовых кодов","Исполнение любых команд (с плейсхолдером %player%)","Кастомизируемое сообщение при активации"],
+    apple_date:"Март 2026", apple_desc:"Добавляет в игру яблоки с нестандартными эффектами и взрывные зелья",
+    apple_points:["8 видов яблок (Второе дыхание, Плод гнева, Блиц и др.)","10+ взрывных зелий (Тотальная гибель, Распад, Абсолютная сущность)","Поддержка CustomModelData и градиентных описаний"],
+    antirelog_date:"Март 2026", antirelog_desc:"Форк Antirelog с дополнительными командами управления PvP-статусом",
+    antirelog_points:["Команды /pvp extend, /pvp clear, /pvp status","PlaceholderAPI для отображения таймера"],
+    traps_date:"Март 2026", traps_desc:"Позволяет игрокам ставить ловушки (взрыв, яд, телепорт) только в своих регионах",
+    traps_points:["Типы: взрыв, отравление, телепортация, оглушение","Интеграция с WorldGuard для проверки флагов","Автоматическое удаление через заданное время"],
+    ac_date:"2026", ac_desc:"Собственный античит с ИИ-анализом поведения, GUI проверок и системой репортов",
+    ac_points:["AI-модуль анализа движений и боёв","GUI панель проверок и менеджер детектов","Репорты и режим слежки за игроком","Голограммы и кэш текстур при проверках"],
+    airdrop_date:"2026", airdrop_desc:"Аирдропы с падающими сундуками: редактор лута в игре, защита блока и уведомления",
+    airdrop_points:["Редактор лута прямо из игры через GUI","Защита сундука от чужих рук до вскрытия","Discord-вебхуки о дропах и получателях","Меню управления спавном аирдропов"],
+    antipodsos_date:"2026", antipodsos_desc:"Блокирует подбор лута после смерти — запрещает «подсасывать» вещи убитых игроков",
+    antipodsos_points:["Фильтрация подбора по источнику дропа","Правила для убийцы и жертвы из конфига","Автоочистка лута по таймеру"],
+    customblock_date:"2026", customblock_desc:"Кастомные функциональные блоки на головах: фермер, чанклоадер, бустер, налоговый сундук",
+    customblock_points:["Тики-задачи: фермерство, хопперы, генерация","Чанклоадеры и бустеры скорости","Налоговый сундук — сбор в казну","GUI управление всеми блоками"],
+    dmarket_date:"2026", dmarket_desc:"Маркетплейс донат-валюты и предметов: ордера, обмены и полная история сделок",
+    dmarket_points:["Ордена на покупку и продажу предметов","Обмен поинтов и донат-валюты","История транзакций + Discord-вебхуки","Хранение в SQLite/MySQL"],
+    end_date:"2026", end_desc:"Расписной ивент в Энде: спавн яиц и структур по таймингам с предупреждениями",
+    end_points:["Расписание по часовому поясу сервера","Предупреждения за 5/3/1 минуту","Авто-респавн дракона консольной командой","Плейсхолдеры статуса ивента"],
+    exp_date:"2026", exp_desc:"Эксп-экономика: магазин за опыт, кастомные бутылочки и кулоны удачи",
+    exp_points:["Магазин за опыт через GUI","Кастомные бутылочки опыта","Кулоны с пассивными эффектами","Боевые бонусы от уровня"],
+    explvl_date:"2026", explvl_desc:"Отдельная система уровней с сохранением и плейсхолдерами для других плагинов",
+    explvl_points:["Свой уровень вместо ванильного","Надёжное хранение данных игроков","Плейсхолдеры %level% через PAPI"],
+    newtonapple_date:"2026", newtonapple_desc:"Ивент «Яблоня»: дерево из схематика, фазы созревания, боссбар и сбор урожая",
+    newtonapple_points:["Спавн дерева по схематику WorldEdit","Фазы: цветение → спелость → падение яблок","Боссбар, голограммы и партиклы","Discord-уведомления об ивенте"],
+    prefix_date:"2026", prefix_desc:"Магазин префиксов через GUI с покупкой цветов и градиентов за валюту",
+    prefix_points:["Выбор префикса в удобном меню","Покраска символов по цене за цвет","Оплата через Vault / PlayerPoints","Плейсхолдеры для чат-плагинов"],
+    quarry_date:"2026", quarry_desc:"Ивентовый карьер: спецкирка копает область, житель продаёт апгрейды",
+    quarry_points:["Карьер по схематику с ротацией","Прогресс на скорборде и боссбаре","NPC-торговец и магазин улучшений","Защита территорий через WorldGuard"],
+    recipe_date:"2026", recipe_desc:"Конструктор рецептов прямо в игре: создавай крафты через GUI без конфигов",
+    recipe_points:["Редактор рецептов в инвентаре","Список всех кастомных крафтов","Форменные и бесформенные рецепты","Сохранение предметов с NBT"],
+    region_date:"2026", region_desc:"Приватация территорий игроками: лимиты по правам, голограммы и управление",
+    region_points:["Выделение и создание региона командой","Лимиты приватов по группам LuckPerms","Голограммы над регионами","Автозадачи обслуживания зон"],
+    rtp_date:"2026", rtp_desc:"Рандомный телепорт по миру с поиском безопасной точки и учётом приваток",
+    rtp_points:["Поиск безопасной площадки для приземления","Обход регионов и опасных зон","Кулдауны и лимиты телепортов"],
+    vote_date:"2026", vote_desc:"Автоголосования за следующий ивент: GUI-опросы с весами шансов",
+    vote_points:["Автозапуск опросов по интервалу онлайн-таблицы","Веса шансов для каждого ивента","GUI голосования с таймером","Спавн победителя консольной командой"],
+    tgshop_date:"2026", tgshop_desc:"Telegram-магазин доната: покупка товаров ботом с промокодами и историей заказов",
+    tgshop_points:["Полный флоу покупки внутри бота","Промокоды и история покупок","Привязка Telegram к игровому нику","SQLite база заказов и игроков"],
+    exp_cmd:"$> git log --author=Al3xPay", exp_title:"Опыт работы:",
+    willslow_date:"Февраль 2026", willslow_role:"Главный разработчик", willslow_desc:"Анархический сервер 1.16.5",
+    willslow_points:["Полностью пересобрал сборку сервера","Написал большое количество плагинов","Настроил и интегрировал множество плагинов","Переписал плагины: Antirelog (Lemyoo), SprotectStone (Sleepygarfield), HolyLiteItems (Kotikstasika)"],
+    starsdev_date:"2026 — н.в.", starsdev_role:"Основатель / Ведущий разработчик", starsdev_desc:"Студия разработки плагинов на заказ",
+    starsdev_points:["Разработка уникальных систем: экономика, кастомные предметы, PvP-механики","Оптимизация готовых сборок, повышение TPS с 5 до 20","Интеграция с MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard"],
+    skills_cmd:"$> cat technologies.md", skills_title:"Технологический стек",
+    skill_lang_title:"Языки и платформы", skill_db_title:"Базы данных", skill_api_title:"Интеграции и API", skill_devops_title:"Сборка и DevOps",
+    proc_title:"Как я работаю", proc_desc:"Прозрачный процесс из трёх шагов — вы всегда знаете, на каком этапе ваш проект.",
+    step1_t:"Заявка и обсуждение", step1_d:"Пишете в Telegram, описываете задачу — я уточняю детали, предлагаю решение и называю цену.",
+    step2_t:"Разработка и тесты", step2_d:"Пишу код, тестирую на реальном сервере и показываю промежуточные результаты.",
+    step3_t:"Сдача и поддержка", step3_d:"Передаю плагин с документацией. 14 дней бесплатных правок после сдачи.",
+    faq_title:"Вопросы и ответы",
+    faq_q1:"Сколько стоит разработка плагина?", faq_a1:"Цена зависит от сложности: простые механики дешевле, крупные системы с интеграциями дороже. Точную оценку даю бесплатно после обсуждения задачи.",
+    faq_q2:"Какие сроки выполнения?", faq_a2:"Небольшие плагины — от 1 до 3 дней, крупные системы — от недели. Дедлайн согласовывается заранее и всегда соблюдается.",
+    faq_q3:"Есть ли гарантия на код?", faq_a3:"Да. После сдачи действуют 14 дней бесплатных исправлений багов, а также помощь при обновлении версий сервера.",
+    faq_q4:"С какими версиями Minecraft вы работаете?", faq_a4:"От 1.8 до актуальных версий Paper и Spigot. Интеграции с PlaceholderAPI, Vault, MythicMobs, WorldGuard и другими популярными плагинами.",
+    cta_badge:"Первый шаг — одно сообщение", cta_title:"Готовы начать проект?",
+    cta_text:"Напишите мне в Telegram — обсудим задачу и получите бесплатную оценку сроков и стоимости.",
+    cta_btn_tg:"Написать в Telegram", cta_btn_mail:"Написать на Email",
+    footer_text:"© 2026 Al3xPay — Senior Java Developer."
+  },
+  en: {
+    nav_works:"Plugins", nav_exp:"Experience", nav_skills:"Stack", nav_faq:"FAQ", nav_contact:"Contact",
+    nav_status:"Open for orders",
+    hero_badge:"Open for orders · Quick start",
+    hero_t1:"Premium Minecraft", hero_t2:"plugin development",
+    hero_sub:"Unique mechanics, custom items, server optimization and integrations with any API. From idea to finished plugin in record time.",
+    btn_order:"Order a plugin", btn_works:"View works",
+    trust_1:"Quality guarantee", trust_2:"Post-release support", trust_3:"Remote work",
+    dash_role:"StarsDev Studio", dash_status:"online",
+    dash_bal_label:"Projects delivered", dash_bonus:"+ warranty",
+    chip_1:"Custom items", chip_2:"PvP mechanics", chip_3:"Economy", chip_4:"TPS optimization",
+    dash_case_title:"Free consultation", dash_case_text:"Discuss your task and estimate the timeline right now.", dash_case_btn:"Message",
+    feat_speed_t:"Instant reply", feat_speed_d:"usually within an hour",
+    feat_guar_t:"Fix guarantee", feat_guar_d:"14 days after delivery",
+    stat_orders:"Completed orders", stat_clients:"Clients", stat_apis:"API integrations", stat_plugins:"Plugins built",
+    works_cmd:"$> ls -1 plugins/", works_title:"All plugins:",
+    works_desc:"Own Stars* plugin line and custom orders: ready solutions and unique mechanics for servers of any scale. Click a card to see details.",
+    hearts_date:"June 2026", hearts_customer:"Made for © CrystalCraft", hearts_desc:"Custom hearts plugin",
+    hearts_points:["Added CustomModelData support","Hearts giving via command"],
+    items_date:"May 2026", items_desc:"Extends vanilla mechanics: drills, magnetism, lavawalker, tracker dust, piercing eye, statue",
+    items_points:["Drills — 3x3/6x6/9x9 area mining","Magnetism — item auto-collect in radius","Lavawalker — walk on lava turning into obsidian","Firefly curse — highlight target on hit","Tracker dust — reveal invisible players","Piercing eye — blindness+slowness in radius","Statue — immobilize target"],
+    backpacks_date:"May 2026", backpacks_desc:"Store items inside any item, auto-collect drop with Shift+RMB",
+    backpacks_points:["Any material + custom model","Auto-collect items in radius","Prevent backpack nesting","SQLite/MySQL storage"],
+    barrel_date:"May 2026", barrel_desc:"Barrel system openable with lockpicks of different rarity, loot from dungeon chests",
+    barrel_points:["6 lockpick types (common to legendary)","Guaranteed loot for rare lockpicks","Leaderboard hologram","HolographicDisplays + MySQL integration"],
+    symbol_date:"April 2026", symbol_desc:"Prefix symbol changing color/animation based on donation amount",
+    symbol_points:["Any Unicode symbol (star, lightning, etc.)","Color gradient or rainbow animation","Permission management via commands"],
+    quests_date:"April 2026", quests_desc:"Quest system with rewards and coin shop",
+    quests_points:["40+ quest types, 3 rarities (common, rare, mythic)","Rewards as commands and quest coins","Shop auto-refresh every 24h","Reset timer in GUI"],
+    boss_date:"April 2026", boss_desc:"Boss spawn on specific days/times, rewards based on damage top",
+    boss_points:["Schedule: weekdays & time from config","Top 3 damage dealers get rewards","MythicMobs + SQLite integration"],
+    codes_date:"March 2026", codes_desc:"Create promocodes executing any console command with fancy message",
+    codes_points:["Single-use or multi-use codes","Execute any command (with %player% placeholder)","Customizable activation message"],
+    apple_date:"March 2026", apple_desc:"Adds apples with unique effects and explosive potions",
+    apple_points:["8 apple types (Second Wind, Wrath Fruit, Blitz, etc.)","10+ explosive potions (Total Annihilation, Decay, Absolute Entity)","CustomModelData + gradient lore support"],
+    antirelog_date:"March 2026", antirelog_desc:"Antirelog fork with additional PvP status management commands",
+    antirelog_points:["Commands: /pvp extend, /pvp clear, /pvp status","PlaceholderAPI for timer display"],
+    traps_date:"March 2026", traps_desc:"Allows players to place traps (explosion, poison, teleport) only in their regions",
+    traps_points:["Types: explosion, poison, teleportation, stun","WorldGuard flag integration","Auto-removal after set time"],
+    ac_date:"2026", ac_desc:"Custom anticheat with AI behavior analysis, check GUI and report system",
+    ac_points:["AI module analyzing movement and combat","Check GUI panel and detection manager","Reports and player spectate mode","Holograms and texture cache during checks"],
+    airdrop_date:"2026", airdrop_desc:"Airdrops with falling chests: in-game loot editor, block protection and notifications",
+    airdrop_points:["In-game loot editor via GUI","Chest protection until opened","Discord webhooks about drops and looters","AirDrop spawn control menu"],
+    antipodsos_date:"2026", antipodsos_desc:"Blocks looting after death — prevents stealing items from killed players",
+    antipodsos_points:["Pickup filtering by drop source","Configurable killer/victim rules","Timed auto-cleanup of dropped loot"],
+    customblock_date:"2026", customblock_desc:"Custom functional skull blocks: farmer, chunk loader, booster, tax chest",
+    customblock_points:["Tick tasks: farming, hoppers, generation","Chunk loaders and speed boosters","Tax chest collecting into treasury","Full GUI control over blocks"],
+    dmarket_date:"2026", dmarket_desc:"Marketplace for donate currency and items: orders, exchanges and full trade history",
+    dmarket_points:["Buy and sell item orders","Points and donate currency exchange","Transaction history + Discord webhooks","SQLite/MySQL storage"],
+    end_date:"2026", end_desc:"Scheduled End event: egg and structure spawns by timetable with warnings",
+    end_points:["Schedule by server timezone","Warnings 5/3/1 minutes before","Auto dragon respawn via console command","Event status placeholders"],
+    exp_date:"2026", exp_desc:"XP economy: shop for experience, custom bottles and lucky pendants",
+    exp_points:["XP shop via GUI","Custom XP bottles","Pendants with passive effects","Combat bonuses per level"],
+    explvl_date:"2026", explvl_desc:"Standalone level system with persistence and placeholders for other plugins",
+    explvl_points:["Own level instead of vanilla","Reliable player data storage","%level% placeholders via PAPI"],
+    newtonapple_date:"2026", newtonapple_desc:"'Apple Tree' event: schematic tree, ripening phases, bossbar and harvesting",
+    newtonapple_points:["Tree spawn via WorldEdit schematic","Phases: bloom → ripe → falling apples","Bossbar, holograms and particles","Discord event notifications"],
+    prefix_date:"2026", prefix_desc:"Prefix shop via GUI with purchasable colors and gradients",
+    prefix_points:["Prefix selection menu","Per-color pricing for symbols","Vault / PlayerPoints payments","Placeholders for chat plugins"],
+    quarry_date:"2026", quarry_desc:"Event quarry: special pickaxe mines an area, villager sells upgrades",
+    quarry_points:["Schematic quarry with rotation","Progress on scoreboard and bossbar","NPC trader and upgrade shop","Territory protection via WorldGuard"],
+    recipe_date:"2026", recipe_desc:"In-game recipe builder: create crafts via GUI without configs",
+    recipe_points:["Recipe editor in inventory","List of all custom crafts","Shaped and shapeless recipes","NBT-aware item serialization"],
+    region_date:"2026", region_desc:"Player land claiming: permission-based limits, holograms and management",
+    region_points:["Region selection and creation command","Claim limits by LuckPerms groups","Holograms above regions","Zone maintenance tasks"],
+    rtp_date:"2026", rtp_desc:"Random teleport with safe spot search and claim awareness",
+    rtp_points:["Safe landing spot search","Skips regions and danger zones","Cooldowns and teleport limits"],
+    vote_date:"2026", vote_desc:"Automatic votes for the next event: GUI polls with chance weights",
+    vote_points:["Auto-start polls based on online table","Chance weights per event","Voting GUI with timer","Winner spawn via console command"],
+    tgshop_date:"2026", tgshop_desc:"Telegram donate shop: buy items via bot with promocodes and order history",
+    tgshop_points:["Full purchase flow inside the bot","Promocodes and purchase history","Telegram linked to game nickname","SQLite orders database"],
+    exp_cmd:"$> git log --author=Al3xPay", exp_title:"Work experience:",
+    willslow_date:"February 2026", willslow_role:"Lead Developer", willslow_desc:"Anarchy server 1.16.5",
+    willslow_points:["Completely rebuilt server build","Developed many plugins","Configured and integrated multiple plugins","Rewritten plugins: Antirelog, SprotectStone, HolyLiteItems"],
+    starsdev_date:"2026 — present", starsdev_role:"Founder / Lead Developer", starsdev_desc:"Custom plugin development studio",
+    starsdev_points:["Unique systems: economy, custom items, PvP mechanics","Optimized server builds, raised TPS from 5 to 20","Integration with MySQL, PlaceholderAPI, Vault, MythicMobs, WorldGuard"],
+    skills_cmd:"$> cat technologies.md", skills_title:"Tech stack",
+    skill_lang_title:"Languages & Platforms", skill_db_title:"Databases", skill_api_title:"Integrations & APIs", skill_devops_title:"Build & DevOps",
+    proc_title:"How I work", proc_desc:"A transparent three-step process — you always know where your project stands.",
+    step1_t:"Request & discussion", step1_d:"Message me on Telegram with your task — I clarify details, propose a solution and quote a price.",
+    step2_t:"Development & testing", step2_d:"I write the code, test it on a live server and show you intermediate results.",
+    step3_t:"Delivery & support", step3_d:"You get the plugin with docs. 14 days of free fixes after delivery.",
+    faq_title:"FAQ",
+    faq_q1:"How much does a custom plugin cost?", faq_a1:"It depends on complexity: simple mechanics cost less, large systems with integrations cost more. I provide an exact estimate for free after discussing the task.",
+    faq_q2:"What are the deadlines?", faq_a2:"Small plugins take 1–3 days, large systems a week or more. The deadline is agreed in advance and always respected.",
+    faq_q3:"Is there a warranty on the code?", faq_a3:"Yes. You get 14 days of free bug fixes after delivery, plus help when updating server versions.",
+    faq_q4:"Which Minecraft versions do you support?", faq_a4:"From 1.8 up to the latest Paper and Spigot versions. Integrations with PlaceholderAPI, Vault, MythicMobs, WorldGuard and other popular plugins.",
+    cta_badge:"One message to start", cta_title:"Ready to start a project?",
+    cta_text:"Message me on Telegram — let's discuss your task and get a free estimate of time and cost.",
+    cta_btn_tg:"Message on Telegram", cta_btn_mail:"Send an Email",
+    footer_text:"© 2026 Al3xPay — Senior Java Developer."
+  }
+};
+
+let currentLang = 'ru';
+let TG_ONLINE = null;
+function applyTGStatus(online){
+  TG_ONLINE = online;
+  document.querySelectorAll('.tg-status').forEach(function(p){
+    p.classList.toggle('tg-offline', !online);
+    var t = p.querySelector('.st-text');
+    if(t){
+      if(!t.dataset.orig) t.dataset.orig = t.textContent;
+      t.textContent = online ? t.dataset.orig : (currentLang === 'ru' ? 'не в сети' : 'offline');
     }
-  };
-
-  let currentLang = 'ru';
-  function updateLanguage(lang) {
-    const t = translations[lang];
-    if(!t) return;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if(t[key]) el.innerText = t[key];
-    });
-    document.querySelectorAll('[data-i18n-list]').forEach(ul => {
-      const key = ul.getAttribute('data-i18n-list');
-      const items = t[key];
-      if(items && Array.isArray(items)) {
-        const lis = ul.querySelectorAll('li');
-        items.forEach((text, idx) => { if(lis[idx]) lis[idx].innerHTML = text; });
-      }
-    });
-    document.getElementById('lang-toggle').innerText = lang === 'ru' ? 'EN' : 'RU';
-    currentLang = lang;
-  }
-
-  function toggleLanguage() {
-    const newLang = currentLang === 'ru' ? 'en' : 'ru';
-    updateLanguage(newLang);
-  }
-
-  function toggleMode() {
-    const nm = document.getElementById('normal-mode');
-    const tm = document.getElementById('terminal-mode');
-    const btn = document.getElementById('mode-toggle');
-    if(tm.classList.contains('active')) {
-      tm.classList.remove('active');
-      nm.classList.remove('hidden');
-      btn.textContent = 'Terminal';
-    } else {
-      tm.classList.add('active');
-      nm.classList.add('hidden');
-      btn.textContent = 'Normal';
-      document.getElementById('term-input').focus();
-    }
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.rv').forEach(el => observer.observe(el));
-  document.querySelectorAll('.commit').forEach((c, i) => {
-    c.style.opacity = '0';
-    c.style.transform = 'translateY(12px)';
-    c.style.transition = `opacity 0.4s ease ${i*0.05}s, transform 0.4s ease ${i*0.05}s`;
-    const obs = new IntersectionObserver(([entry]) => {
-      if(entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        obs.unobserve(entry.target);
-      }
-    }, { threshold: 0.1 });
-    obs.observe(c);
   });
+}
+function updateLanguage(lang) {
+  const t = translations[lang];
+  if(!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(t[key]) el.innerText = t[key];
+  });
+  document.querySelectorAll('[data-i18n-list]').forEach(ul => {
+    const key = ul.getAttribute('data-i18n-list');
+    const items = t[key];
+    if(items && Array.isArray(items)) {
+      ul.innerHTML = items.map(txt => '<li>' + txt + '</li>').join('');
+    }
+  });
+  document.getElementById('lang-toggle').innerText = lang === 'ru' ? 'EN' : 'RU';
+  currentLang = lang;
+  if(TG_ONLINE !== null) applyTGStatus(TG_ONLINE);
+}
+function toggleLanguage(){ updateLanguage(currentLang === 'ru' ? 'en' : 'ru'); }
+function toggleBurger(){ document.getElementById('navLinks').classList.toggle('open'); }
 
-  const output = document.getElementById('term-output');
-  const input = document.getElementById('term-input');
-  const commands = {
-    help: () => "Available: about, works, skills, contact, clear, exit",
-    about: () => "Alexey Tsaregorodtsev, Senior Java Developer. Minecraft plugins.",
-    works: () => "StarsHearts, StarsItems, StarsBackpaks, StarsBarrel, StarsSymbol, StarsQuests, StarsMythicBoss, StarsCodes, StarsUniqueApple, StarsAntiRelog, StarsTraps. Details in 'All plugins' section.",
-    skills: () => "Java, PaperAPI, MySQL, SQLite, PlaceholderAPI, Vault, MythicMobs, WorldGuard, HolographicDisplays, ProtocolLib, NBT-API, CommandAPI, Maven, Gradle",
-    contact: () => "Email: Al3xPayment@gmail.com | Telegram: t.me/Al3xPay | GitHub: github.com/Al3xPay",
-    clear: () => { output.innerHTML = ''; return null; },
-    exit: () => { toggleMode(); return null; }
-  };
-  if(input) {
-    input.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter') {
-        const cmd = input.value.trim().toLowerCase();
-        const line = document.createElement('div');
-        line.innerHTML = `<span style="color:#d32f2f">Al3xPay@starsdev:~$</span> ${cmd}`;
-        output.appendChild(line);
-        const res = commands[cmd] ? commands[cmd]() : `Unknown command: ${cmd}. Type 'help'.`;
-        if(res) { const outDiv = document.createElement('div'); outDiv.textContent = res; output.appendChild(outDiv); }
-        input.value = '';
-        output.scrollTop = output.scrollHeight;
+function toggleMode() {
+  const nm = document.getElementById('normal-mode');
+  const tm = document.getElementById('terminal-mode');
+  const btn = document.getElementById('mode-toggle');
+  if(tm.classList.contains('active')) {
+    tm.classList.remove('active'); nm.classList.remove('hidden');
+    btn.textContent = 'Terminal';
+  } else {
+    tm.classList.add('active'); nm.classList.add('hidden');
+    btn.textContent = 'Normal';
+    document.getElementById('term-input').focus();
+  }
+}
+
+/* navbar scrolled state */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 8);
+});
+
+/* active link spy */
+try {
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        document.querySelectorAll('.nav-links>a').forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
       }
     });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  ['works','experience','skills','process','faq','contact'].forEach(id => {
+    const s = document.getElementById(id);
+    if(s) spy.observe(s);
+  });
+} catch(err) {}
+
+/* reveal animations — fail-safe */
+(function(){
+  var els = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)) return;
+  els.forEach(function(el, i){ el.style.transitionDelay = Math.min(i % 8, 6) * 0.06 + 's'; });
+  function show(el){ el.classList.add('vis'); }
+  function cleanup(el){ el.style.transitionDelay = ''; }
+  var ro = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        show(e.target);
+        cleanup(e.target);
+        ro.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  els.forEach(function(el){ ro.observe(el); });
+  setTimeout(function(){ els.forEach(function(el){ if(!el.classList.contains('vis')) { show(el); cleanup(el); } }); }, 2000);
+})();
+
+/* expandable cards */
+document.querySelectorAll('.pcard, .exp-card').forEach(c => {
+  c.addEventListener('click', () => c.classList.toggle('open'));
+});
+
+/* FAQ accordion */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const ans = item.querySelector('.faq-a');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!open) {
+      item.classList.add('open');
+      ans.style.maxHeight = ans.scrollHeight + 'px';
+    }
+  });
+});
+
+/* counters */
+function animateCount(el) {
+  const target = parseInt(el.getAttribute('data-target'), 10);
+  const dur = 1500;
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(eased * target);
+    if(p < 1) requestAnimationFrame(tick);
   }
-  document.getElementById('terminal-mode').addEventListener('click', () => document.getElementById('term-input').focus());
-  updateLanguage('ru');
-</script>
+  requestAnimationFrame(tick);
+}
+try {
+  if('IntersectionObserver' in window) {
+    const co = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting) { animateCount(e.target); co.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.cnt').forEach(el => co.observe(el));
+  } else {
+    document.querySelectorAll('.cnt').forEach(el => { el.textContent = el.getAttribute('data-target'); });
+  }
+} catch(err) {
+  document.querySelectorAll('.cnt').forEach(el => { try{ el.textContent = el.getAttribute('data-target'); }catch(e2){} });
+}
+
+/* terminal */
+const output = document.getElementById('term-output');
+const input = document.getElementById('term-input');
+const commands = {
+  help: () => "Available: about, works, skills, contact, clear, exit",
+  about: () => "Al3xPay, Senior Java Developer. Custom Minecraft plugins & server optimization.",
+  works: () => "27 plugins: Stars* line + AC, AirDrop, AntiPodSos, CustomBlock, DMarket, End, Exp, ExpLvL, NewtonApple, Prefix, Quarry, Recipe, Region, Rtp, Vote, TelegramShop. Details in 'Plugins' section.",
+  skills: () => "Java, PaperAPI, MySQL, SQLite, PlaceholderAPI, Vault, MythicMobs, WorldGuard, HolographicDisplays, ProtocolLib, NBT-API, CommandAPI, Maven, Gradle",
+  contact: () => "Email: Al3xPayment@gmail.com | Telegram: t.me/Al3xPay | GitHub: github.com/Al3xPay",
+  clear: () => { output.innerHTML = ''; return null; },
+  exit: () => { toggleMode(); return null; }
+};
+if(input) {
+  input.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+      const cmd = input.value.trim().toLowerCase();
+      const line = document.createElement('div');
+      line.innerHTML = '<span style="color:#d32f2f">Al3xPay@starsdev:~$</span> ' + cmd.replace(/</g,'&lt;');
+      output.appendChild(line);
+      const res = commands[cmd] ? commands[cmd]() : "Unknown command: " + cmd + ". Type 'help'.";
+      if(res) { const outDiv = document.createElement('div'); outDiv.textContent = res; output.appendChild(outDiv); }
+      input.value = '';
+      output.scrollTop = output.scrollHeight;
+    }
+  });
+}
+document.getElementById('terminal-mode').addEventListener('click', () => document.getElementById('term-input').focus());
+
+/* telegram online status — читает tg-status.json рядом с сайтом */
+(function(){
+  if(!document.querySelector('.tg-status')) return;
+  function poll(){
+    fetch('tg-status.json?t=' + Date.now())
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ if(d && typeof d.online === 'boolean') applyTGStatus(d.online); })
+      .catch(function(){});
+  }
+  poll();
+  setInterval(poll, 60000);
+})();
+
+updateLanguage('ru');</script>
 </body>
 </html>
