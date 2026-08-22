@@ -1,12 +1,7 @@
-# -*- coding: utf-8 -*-
-"""CI-версия: запускается GitHub Actions по расписанию.
-Читает секреты TG_API_ID / TG_API_HASH / TG_SESSION,
-проверяет статус @TARGET и пишет tg-status.json в корень репозитория."""
-
 import json
 import os
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from telethon import TelegramClient
 from telethon.sessions import StringSession
@@ -19,18 +14,22 @@ SESSION = os.environ["TG_SESSION"]
 TARGET = "Al3xPay"          # чей статус проверяем
 OUT_FILE = "output/portfolio/tg-status.json"   # рядом с index.html
 
+MSK = timezone(timedelta(hours=3))   # Москва = UTC+3 всегда
 
-def status_to_bool(status):
-    if isinstance(status, UserStatusOnline):
-        return True
-    if isinstance(status, UserStatusRecently):
-        return True
+
+def describe(status):
+    """UserStatus* -> данные для сайта"""
+    if isinstance(status, (UserStatusOnline, UserStatusRecently)):
+        return {"online": True}
     if isinstance(status, UserStatusOffline):
         was = getattr(status, "last_online", None)
         if was:
-            mins_ago = (datetime.now(timezone.utc) - was).total_seconds() / 60
-            return mins_ago <= 5   # «недавно был» считаем онлайн
-    return False
+            mins = int((datetime.now(timezone.utc) - was).total_seconds() // 60)
+            msk = was.astimezone(MSK)
+            # меньше суток — только время, больше — дата и время
+            label = msk.strftime("%d.%m %H:%M") if mins >= 1440 else msk.strftime("%H:%M")
+            return {"online": mins <= 5, "last_label": label, "ago_min": mins}
+    return {"online": False}
 
 
 def main():
@@ -41,13 +40,14 @@ def main():
 
     entity = client.get_entity(TARGET)
     full = client(GetFullUserRequest(entity))
-    data = {
-        "online": status_to_bool(full.full_user.status),
-        "checked_at": int(time.time()),
-    }
+    data = describe(full.full_user.status)
+    if "last_label" not in data:
+        data["last_label"] = ""
+    data["checked_at"] = int(time.time())
+
     os.makedirs(os.path.dirname(OUT_FILE), exist_ok=True)
     with open(OUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f)
+        json.dump(data, f, ensure_ascii=False)
     print("OK:", data)
     client.disconnect()
 
