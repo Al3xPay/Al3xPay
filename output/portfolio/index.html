@@ -53,7 +53,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 24px;transitio
 nav.scrolled{background:rgba(5,5,5,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom-color:var(--border)}
 .nav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-.logo-mark{width:40px;height:40px;border-radius:12px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 20px -6px rgba(211,47,47,.55);flex-shrink:0}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 20px -6px rgba(211,47,47,.55);flex-shrink:0;position:relative;overflow:hidden}
 .logo-mark svg{width:19px;height:19px;stroke:#fff}
 .logo-name{font-family:var(--disp);font-weight:700;font-size:14px;line-height:1.15;letter-spacing:.2px}
 .logo-sub{font-size:10px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase}
@@ -377,7 +377,7 @@ html.js .rv.vis{opacity:1;transform:translateY(0)}
     <div class="hero-right dash-wrap rv">
       <div class="dashcard">
         <div class="dash-head">
-          <div class="avatar">A</div>
+          <div class="avatar"><span>A</span><img class="avatar-img" src="avatar.jpg" alt="" onerror="this.remove()"></div>
           <div>
             <div class="dash-name">Al3xPay</div>
             <div class="dash-role" data-i18n="dash_role">StarsDev Studio</div>
